@@ -4,15 +4,14 @@ import com.tyme.AbstractTyme;
 import com.tyme.culture.Direction;
 import com.tyme.culture.fetus.FetusMonth;
 import com.tyme.culture.star.nine.NineStar;
+import com.tyme.jd.JulianDay;
 import com.tyme.sixtycycle.EarthBranch;
 import com.tyme.sixtycycle.HeavenStem;
 import com.tyme.sixtycycle.SixtyCycle;
-import com.tyme.jd.JulianDay;
 import com.tyme.solar.SolarTerm;
 import com.tyme.util.ShouXingUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 农历月
@@ -20,6 +19,10 @@ import java.util.List;
  * @author 6tail
  */
 public class LunarMonth extends AbstractTyme {
+  /**
+   * 缓存
+   */
+  private static final Map<String, Object[]> cache = new HashMap<>();
 
   public static final String[] NAMES = {"正月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
 
@@ -53,6 +56,27 @@ public class LunarMonth extends AbstractTyme {
    */
   protected JulianDay firstJulianDay;
 
+  /**
+   * 从缓存初始化
+   *
+   * @param cache 缓存[农历年(int)，农历月(int,闰月为负)，天数(int)，位于当年的索引(int)，初一的儒略日(double)]
+   */
+  protected LunarMonth(Object[] cache) {
+    int m = (int) cache[1];
+    this.year = LunarYear.fromYear((int) cache[0]);
+    this.month = Math.abs(m);
+    this.leap = m < 0;
+    this.dayCount = (int) cache[2];
+    this.indexInYear = (int) cache[3];
+    this.firstJulianDay = JulianDay.fromJulianDay((double) cache[4]);
+  }
+
+  /**
+   * 从农历年月初始化
+   *
+   * @param year  农历年
+   * @param month 农历月，闰月为负
+   */
   public LunarMonth(int year, int month) {
     LunarYear currentYear = LunarYear.fromYear(year);
     int currentLeapMonth = currentYear.getLeapMonth();
@@ -75,15 +99,11 @@ public class LunarMonth extends AbstractTyme {
       w -= 29.53;
     }
 
-    // 计算正月初一的偏移
-    LunarYear prevYear = LunarYear.fromYear(year - 1);
-    int prevLeapMonth = prevYear.getLeapMonth();
-
     // 正常情况正月初一为第3个朔日，但有些特殊的
     int offset = 2;
     if (year > 8 && year < 24) {
       offset = 1;
-    } else if (prevLeapMonth > 10 && year != 239 && year != 240) {
+    } else if (LunarYear.fromYear(year - 1).getLeapMonth() > 10 && year != 239 && year != 240) {
       offset = 3;
     }
 
@@ -113,7 +133,22 @@ public class LunarMonth extends AbstractTyme {
    * @return 农历月
    */
   public static LunarMonth fromYm(int year, int month) {
-    return new LunarMonth(year, month);
+    LunarMonth m;
+    String key = String.format("%d%d", year, month);
+    Object[] c = cache.get(key);
+    if (null != c) {
+      m = new LunarMonth(c);
+    } else {
+      m = new LunarMonth(year, month);
+      cache.put(key, new Object[]{
+        m.getYear(),
+        m.getMonthWithLeap(),
+        m.getDayCount(),
+        m.getIndexInYear(),
+        m.getFirstJulianDay().getDay()
+      });
+    }
+    return m;
   }
 
   /**
@@ -121,8 +156,17 @@ public class LunarMonth extends AbstractTyme {
    *
    * @return 农历年
    */
-  public LunarYear getYear() {
+  public LunarYear getLunarYear() {
     return year;
+  }
+
+  /**
+   * 年
+   *
+   * @return 年
+   */
+  public int getYear() {
+    return year.getYear();
   }
 
   /**
@@ -214,23 +258,24 @@ public class LunarMonth extends AbstractTyme {
 
   public LunarMonth next(int n) {
     if (n == 0) {
-      return fromYm(year.getYear(), getMonthWithLeap());
+      return fromYm(getYear(), getMonthWithLeap());
     }
     int m = indexInYear + 1 + n;
     LunarYear y = year;
     int leapMonth = y.getLeapMonth();
-    int monthSize = 12 + (leapMonth > 0 ? 1 : 0);
-    boolean forward = n > 0;
-    int add = forward ? 1 : -1;
-    while (forward ? (m > monthSize) : (m <= 0)) {
-      if (forward) {
-        m -= monthSize;
+    if (n > 0) {
+      int monthCount = leapMonth > 0 ? 13 : 12;
+      while (m > monthCount) {
+        m -= monthCount;
+        y = y.next(1);
+        leapMonth = y.getLeapMonth();
+        monthCount = leapMonth > 0 ? 13 : 12;
       }
-      y = y.next(add);
-      leapMonth = y.getLeapMonth();
-      monthSize = 12 + (leapMonth > 0 ? 1 : 0);
-      if (!forward) {
-        m += monthSize;
+    } else {
+      while (m <= 0) {
+        y = y.next(-1);
+        leapMonth = y.getLeapMonth();
+        m += leapMonth > 0 ? 13 : 12;
       }
     }
     boolean leap = false;
@@ -252,11 +297,11 @@ public class LunarMonth extends AbstractTyme {
    */
   public List<LunarDay> getDays() {
     int size = getDayCount();
-    int y = year.getYear();
+    int y = getYear();
     int m = getMonthWithLeap();
     List<LunarDay> l = new ArrayList<>(size);
-    for (int i = 0; i < size; i++) {
-      l.add(LunarDay.fromYmd(y, m, i + 1));
+    for (int i = 1; i <= size; i++) {
+      l.add(LunarDay.fromYmd(y, m, i));
     }
     return l;
   }
@@ -269,7 +314,7 @@ public class LunarMonth extends AbstractTyme {
    */
   public List<LunarWeek> getWeeks(int start) {
     int size = getWeekCount(start);
-    int y = year.getYear();
+    int y = getYear();
     int m = getMonthWithLeap();
     List<LunarWeek> l = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
@@ -315,14 +360,4 @@ public class LunarMonth extends AbstractTyme {
   public FetusMonth getFetus() {
     return FetusMonth.fromLunarMonth(this);
   }
-
-  @Override
-  public boolean equals(Object o) {
-    if (!(o instanceof LunarMonth)) {
-      return false;
-    }
-    LunarMonth target = (LunarMonth) o;
-    return year.equals(target.getYear()) && getMonthWithLeap() == target.getMonthWithLeap();
-  }
-
 }

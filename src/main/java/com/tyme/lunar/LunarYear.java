@@ -92,6 +92,15 @@ public class LunarYear extends AbstractTyme {
   }
 
   /**
+   * 月数
+   *
+   * @return 月数
+   */
+  public int getMonthCount() {
+    return getLeapMonth() > 0 ? 13 : 12;
+  }
+
+  /**
    * 依据国家标准《农历的编算和颁行》GB/T 33661-2017，农历年有2种命名方法：干支纪年法和生肖纪年法，这里默认采用干支纪年法。
    *
    * @return 名称
@@ -165,16 +174,10 @@ public class LunarYear extends AbstractTyme {
   public List<LunarMonth> getMonths() {
     List<LunarMonth> l = new ArrayList<>(13);
     LunarMonth m = LunarMonth.fromYm(year, 1);
-    while (m.getYear().getYear() == year) {
+    while (m.getYear() == year) {
       l.add(m);
       m = m.next(1);
     }
     return l;
   }
-
-  @Override
-  public boolean equals(Object o) {
-    return o instanceof LunarYear && ((LunarYear)o).getYear() == year;
-  }
-
 }
