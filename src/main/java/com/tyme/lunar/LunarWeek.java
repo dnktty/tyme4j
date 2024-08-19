@@ -59,12 +59,30 @@ public class LunarWeek extends AbstractTyme {
   }
 
   /**
+   * 农历月
+   *
+   * @return 农历月
+   */
+  public LunarMonth getLunarMonth() {
+    return month;
+  }
+
+  /**
+   * 年
+   *
+   * @return 年
+   */
+  public int getYear() {
+    return month.getYear();
+  }
+
+  /**
    * 月
    *
    * @return 月
    */
-  public LunarMonth getMonth() {
-    return month;
+  public int getMonth() {
+    return month.getMonthWithLeap();
   }
 
   /**
@@ -97,34 +115,30 @@ public class LunarWeek extends AbstractTyme {
   public LunarWeek next(int n) {
     int startIndex = start.getIndex();
     if (n == 0) {
-      return fromYm(month.getYear().getYear(), month.getMonthWithLeap(), index, startIndex);
+      return fromYm(getYear(), getMonth(), index, startIndex);
     }
     int d = index + n;
     LunarMonth m = month;
-    int weeksInMonth = m.getWeekCount(startIndex);
-    boolean forward = n > 0;
-    int add = forward ? 1 : -1;
-    while (forward ? (d >= weeksInMonth) : (d < 0)) {
-      if (forward) {
-        d -= weeksInMonth;
-      }
-      if (!forward) {
-        if (!LunarDay.fromYmd(m.getYear().getYear(), m.getMonthWithLeap(), 1).getWeek().equals(start)) {
-          d += add;
+    if (n > 0) {
+      int weekCount = m.getWeekCount(startIndex);
+      while (d >= weekCount) {
+        d -= weekCount;
+        m = m.next(1);
+        if (!LunarDay.fromYmd(m.getYear(), m.getMonthWithLeap(), 1).getWeek().equals(start)) {
+          d += 1;
         }
+        weekCount = m.getWeekCount(startIndex);
       }
-      m = m.next(add);
-      if (forward) {
-        if (!LunarDay.fromYmd(m.getYear().getYear(), m.getMonthWithLeap(), 1).getWeek().equals(start)) {
-          d += add;
+    } else {
+      while (d < 0) {
+        if (!LunarDay.fromYmd(m.getYear(), m.getMonthWithLeap(), 1).getWeek().equals(start)) {
+          d -= 1;
         }
-      }
-      weeksInMonth = m.getWeekCount(startIndex);
-      if (!forward) {
-        d += weeksInMonth;
+        m = m.next(-1);
+        d += m.getWeekCount(startIndex);
       }
     }
-    return fromYm(m.getYear().getYear(), m.getMonthWithLeap(), d, startIndex);
+    return fromYm(m.getYear(), m.getMonthWithLeap(), d, startIndex);
   }
 
   /**
@@ -133,8 +147,7 @@ public class LunarWeek extends AbstractTyme {
    * @return 农历日
    */
   public LunarDay getFirstDay() {
-    LunarMonth m = getMonth();
-    LunarDay firstDay = LunarDay.fromYmd(m.getYear().getYear(), m.getMonthWithLeap(), 1);
+    LunarDay firstDay = LunarDay.fromYmd(getYear(), getMonth(), 1);
     return firstDay.next(index * 7 - indexOf(firstDay.getWeek().getIndex() - start.getIndex(), 7));
   }
 
@@ -151,6 +164,11 @@ public class LunarWeek extends AbstractTyme {
       l.add(d.next(i));
     }
     return l;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    return o instanceof LunarWeek && getFirstDay().equals(((LunarWeek) o).getFirstDay());
   }
 
 }

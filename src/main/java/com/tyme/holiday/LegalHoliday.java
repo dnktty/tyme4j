@@ -2,7 +2,6 @@ package com.tyme.holiday;
 
 import com.tyme.AbstractTyme;
 import com.tyme.solar.SolarDay;
-import com.tyme.solar.SolarMonth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,16 +42,12 @@ public class LegalHoliday extends AbstractTyme {
 
   public static LegalHoliday fromYmd(int year, int month, int day) {
     Matcher matcher = Pattern.compile(String.format("%04d%02d%02d[0-1][0-8][\\+|-]\\d{2}", year, month, day)).matcher(DATA);
-    if (!matcher.find()) {
-      return null;
-    }
-    return new LegalHoliday(year, month, day, matcher.group());
+    return !matcher.find() ? null : new LegalHoliday(year, month, day, matcher.group());
   }
 
   public LegalHoliday next(int n) {
-    SolarMonth m = day.getMonth();
-    int year = m.getYear().getYear();
-    int month = m.getMonth();
+    int year = day.getYear();
+    int month = day.getMonth();
     if (n == 0) {
       return fromYmd(year, month, day.getDay());
     }
@@ -76,23 +71,32 @@ public class LegalHoliday extends AbstractTyme {
     }
     index += n;
     int y = year;
-    boolean forward = n > 0;
-    int add = forward ? 1 : -1;
-    while (forward ? (index >= size) : (index < 0)) {
-      if (forward) {
+    if (n > 0) {
+      while (index >= size) {
         index -= size;
+        y += 1;
+        data.clear();
+        matcher = Pattern.compile(String.format(reg, y)).matcher(DATA);
+        while (matcher.find()) {
+          data.add(matcher.group());
+        }
+        size = data.size();
+        if (size < 1) {
+          return null;
+        }
       }
-      y += add;
-      data.clear();
-      matcher = Pattern.compile(String.format(reg, y)).matcher(DATA);
-      while (matcher.find()) {
-        data.add(matcher.group());
-      }
-      size = data.size();
-      if (size < 1) {
-        return null;
-      }
-      if (!forward) {
+    } else {
+      while (index < 0) {
+        y -= 1;
+        data.clear();
+        matcher = Pattern.compile(String.format(reg, y)).matcher(DATA);
+        while (matcher.find()) {
+          data.add(matcher.group());
+        }
+        size = data.size();
+        if (size < 1) {
+          return null;
+        }
         index += size;
       }
     }

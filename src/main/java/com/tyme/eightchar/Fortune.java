@@ -31,7 +31,7 @@ public class Fortune extends AbstractTyme {
    *
    * @param childLimit 童限
    * @param index      序号
-   * @return 大运
+   * @return 小运
    */
   public static Fortune fromChildLimit(ChildLimit childLimit, int index) {
     return new Fortune(childLimit, index);
@@ -52,7 +52,7 @@ public class Fortune extends AbstractTyme {
    * @return 农历年
    */
   public LunarYear getLunarYear() {
-    return childLimit.getEndTime().getLunarHour().getDay().getMonth().getYear().next(index);
+    return childLimit.getEndTime().getLunarHour().getLunarDay().getLunarMonth().getLunarYear().next(index);
   }
 
   /**

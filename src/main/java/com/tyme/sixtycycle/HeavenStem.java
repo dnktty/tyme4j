@@ -63,20 +63,19 @@ public class HeavenStem extends LoopTyme {
     if (null == target) {
       return null;
     }
-    Element hostElement = getElement();
-    Element guestElement = target.getElement();
+    Element host = getElement();
+    Element guest = target.getElement();
     int index = 0;
-    boolean sameYinYang = getYinYang().equals(target.getYinYang());
-    if (hostElement.getReinforce().equals(guestElement)) {
+    if (host.getReinforce().equals(guest)) {
       index = 1;
-    } else if (hostElement.getRestrain().equals(guestElement)) {
+    } else if (host.getRestrain().equals(guest)) {
       index = 2;
-    } else if (guestElement.getRestrain().equals(hostElement)) {
+    } else if (host.getRestrained().equals(guest)) {
       index = 3;
-    } else if (guestElement.getReinforce().equals(hostElement)) {
+    } else if (host.getReinforced().equals(guest)) {
       index = 4;
     }
-    return TenStar.fromIndex(index * 2 + (sameYinYang ? 0 : 1));
+    return TenStar.fromIndex(index * 2 + (getYinYang().equals(target.getYinYang()) ? 0 : 1));
   }
 
   /**
@@ -85,7 +84,7 @@ public class HeavenStem extends LoopTyme {
    * @return 方位
    */
   public Direction getDirection() {
-    return Direction.fromIndex(new int[]{2, 8, 4, 6, 0}[index / 2]);
+    return getElement().getDirection();
   }
 
   /**
@@ -151,6 +150,25 @@ public class HeavenStem extends LoopTyme {
   public Terrain getTerrain(EarthBranch earthBranch) {
     int earthBranchIndex = earthBranch.getIndex();
     return Terrain.fromIndex(new int[]{1, 6, 10, 9, 10, 9, 7, 0, 4, 3}[index] + (YinYang.YANG == getYinYang() ? earthBranchIndex : -earthBranchIndex));
+  }
+
+  /**
+   * 五合（甲己合，乙庚合，丙辛合，丁壬合，戊癸合）
+   *
+   * @return 天干
+   */
+  public HeavenStem getCombine() {
+    return next(5);
+  }
+
+  /**
+   * 合化（甲己合化土，乙庚合化金，丙辛合化水，丁壬合化木，戊癸合化火）
+   *
+   * @param target 天干
+   * @return 五行，如果无法合化，返回null
+   */
+  public Element combine(HeavenStem target) {
+    return getCombine().equals(target) ? Element.fromIndex(index + 2) : null;
   }
 
 }
