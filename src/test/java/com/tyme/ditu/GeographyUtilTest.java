@@ -1,4 +1,4 @@
-package com.tyme.solar;
+package com.tyme.ditu;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -7,43 +7,52 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Map;
 import java.util.TimeZone;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * @describe: https://github.com/chunjie008/java-solar-time/blob/main/%E7%BB%8F%E7%BA%AC%E5%BA%A6%E8%BD%AC%E7%9C%9F%E5%A4%AA%E9%98%B3%E6%97%B6.java
- * @author: ken
- * @date 2024-08-06
+ * @describe:
+ * @author: kenschen
+ * @date 2024-08-19
  **/
 @Slf4j
-public class TrueSolarTime {
+public class GeographyUtilTest {
 
-    /**
-     *
-     * @param longitude
-     * @param latitude
-     * @param time yyyy-MM-dd HH:mm:ss
-     * @return
-     */
-    public static LocalDateTime getTrueSolarTime(double longitude, double latitude, String time) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime localDateTime = LocalDateTime.parse(time, formatter);
-        ZonedDateTime localZonedDateTime = localDateTime.atZone(ZoneId.of("+8"));
-        return getTrueSolarTime(longitude, latitude, localZonedDateTime);
+    @Test
+    public void testLonAndLat() {
+        try {
+            // 1、根据地址获取经纬度
+            Geography geo = GeographyUtil.getLonAndLat("湖南省长沙市", null);
+            Assert.assertEquals("112.938882", geo.getLongitude());
+            Assert.assertEquals("28.228304", geo.getLatitude());
+
+
+            // 2、根据经纬度获取地址
+            String formattedAddress = GeographyUtil.getAMapByLngAndLat("120.204798", "30.201000", null);
+            Assert.assertEquals("浙江省杭州市滨江区长河街道池奈日式咖喱蛋包饭(龙湖杭州滨江天街店)龙湖郦城公馆", formattedAddress);
+        } catch (Exception e) {
+            log.error("获取地址错误", e);
+        }
     }
 
-    /**
-     * 建议传入公历时间
-     * @param longitude
-     * @param latitude
-     * @param zonedDateTime
-     * @return
-     */
-    public static LocalDateTime getTrueSolarTime(double longitude, double latitude, ZonedDateTime zonedDateTime) {
-        LocalDateTime localDateTime = zonedDateTime.toLocalDateTime();
+
+    public static String 转真太阳时(double longitude, double latitude, String time) {
+        // 将传入的时间字符串解析为ZonedDateTime
+        time = formatDate(time);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime localDateTime = LocalDateTime.parse(time, formatter);
+        ZonedDateTime localZonedDateTime = localDateTime.atZone(ZoneId.of("Asia/Shanghai"));
+
+        // 获取对应的UTC时间
+        ZonedDateTime utcTime = localZonedDateTime.withZoneSameInstant(ZoneOffset.UTC);
 
         // 获取当前当地标准时间（LST）
-        ZoneId zoneId = zonedDateTime.getZone();
+        ZoneId zoneId = ZoneId.of("Asia/Shanghai");  // 替换为对应时区
+        ZonedDateTime localTime = utcTime.withZoneSameInstant(zoneId);
+
         // 计算时区差异（与标准时区的小时数差异）
         int timeZoneOffset = TimeZone.getTimeZone(zoneId).getRawOffset() / 3600000;
 
@@ -51,27 +60,27 @@ public class TrueSolarTime {
         double longitudeTimeDifference = (longitude - (timeZoneOffset * 15)) * 4;  // 分钟数
 
         // 计算均时差（EOT）
-        double eot = getEot(zonedDateTime);
+        double eot = 计算均时差(localTime);
 
         // 计算真太阳时
-        LocalTime localSolarTime = zonedDateTime.toLocalTime()
+        LocalTime localSolarTime = localTime.toLocalTime()
                 .plusMinutes((long) longitudeTimeDifference)
                 .plusMinutes((long) eot);
 
         // 输出结果
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         LocalDateTime solarDateTime = localDateTime.with(LocalTime.of(localSolarTime.getHour(), localSolarTime.getMinute()));
 
         // 如果计算出的真太阳时比当地标准时间晚,且longitudeTimeDifference<0 减去一天
         if (solarDateTime.isAfter(localDateTime)&&longitudeTimeDifference<0) {
-            return solarDateTime.plusDays(-1);
+            return solarDateTime.plusDays(-1).format(dateTimeFormatter);
         }
         // 如果计算出的真太阳时比当地标准时间早,且longitudeTimeDifference<0 增加一天
         if (solarDateTime.isBefore(localDateTime)&&longitudeTimeDifference>0) {
-            return solarDateTime.plusDays(1);
+            return solarDateTime.plusDays(1).format(dateTimeFormatter);
         }
-        return solarDateTime;
+        return solarDateTime.format(dateTimeFormatter);
     }
 
     /**
@@ -80,7 +89,7 @@ public class TrueSolarTime {
      * @param dateTime
      * @return 均时差（分钟）
      */
-    private static double getEot(ZonedDateTime dateTime) {
+    private static double 计算均时差(ZonedDateTime dateTime) {
         // 计算EOT所需的近似公式
         int dayOfYear = dateTime.getDayOfYear();
         double b = 2 * Math.PI * (dayOfYear - 81) / 364.0;
@@ -107,19 +116,12 @@ public class TrueSolarTime {
 
     public static void main(String[] args) {
         // 示例经纬度
-        double longitude = 130.966667;
-        double latitude = 39.9041999;
+        double longitude = 112.966667;
+        double latitude = 28.9041999;
 
-
-        String time = "2024-07-01 23:55";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime localDateTime = LocalDateTime.parse(time, formatter);
-        ZonedDateTime localZonedDateTime = localDateTime.atZone(ZoneId.of("+8"));
-
-
+        String time = "1986-09-26 21:00";
         System.out.println(longitude);
         System.out.println(time);
-        System.out.println(getTrueSolarTime(longitude, latitude, localZonedDateTime));
+        System.out.println(转真太阳时(longitude, latitude, time));
     }
-
 }

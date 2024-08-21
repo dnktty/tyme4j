@@ -1,6 +1,7 @@
 package com.tyme.lunar;
 
 import com.tyme.AbstractTyme;
+import com.tyme.constants.CharConstant;
 import com.tyme.culture.Taboo;
 import com.tyme.culture.star.nine.NineStar;
 import com.tyme.culture.star.twelve.TwelveStar;
@@ -13,6 +14,7 @@ import com.tyme.solar.SolarTerm;
 import com.tyme.solar.SolarTime;
 
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 时辰
@@ -331,5 +333,10 @@ public class LunarHour extends AbstractTyme {
    */
   public List<Taboo> getAvoids() {
     return Taboo.getHourAvoids(getDaySixtyCycle(), getSixtyCycle());
+  }
+
+
+  public String format(){
+      return StringUtils.join(String.format("%02d", this.getYear()), CharConstant.MIDDLE, String.format("%02d", this.getMonth()), CharConstant.MIDDLE, String.format("%02d", this.getDay()), CharConstant.WHITE_SPACE ,String.format("%02d", this.getHour()), CharConstant.COLON ,String.format("%02d", this.getMinute()), CharConstant.COLON, String.format("%02d", this.getSecond()));
   }
 }
