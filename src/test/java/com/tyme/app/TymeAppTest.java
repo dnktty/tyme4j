@@ -1,7 +1,5 @@
 package com.tyme.app;
 
-import com.alibaba.fastjson.JSON;
-import com.tyme.constants.CharConstant;
 import com.tyme.ditu.Geography;
 import com.tyme.ditu.GeographyUtil;
 import com.tyme.eightchar.ChildLimit;
@@ -11,14 +9,16 @@ import com.tyme.enums.Gender;
 import com.tyme.lunar.LunarHour;
 import com.tyme.solar.SolarTime;
 import com.tyme.solar.TrueSolarTime;
+import com.tyme.table.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
-import org.junit.Test;
+import java.util.List;
 
 /**
  * @describe:
@@ -27,14 +27,44 @@ import org.junit.Test;
  **/
 @Slf4j
 public class TymeAppTest {
+    @Test
+    public void testTable(){
+        Table table = TableBuilder.builder()
+                .addColumn(new Column("Name", Color.BLUE))
+                .addColumn(new Column("Age", Color.GREEN))
+                .addHeader("Name")
+                .addHeader("Age")
+                .addRow(new Row()
+                        .addCell(new Cell("Alice", Color.RED))
+                        .addCell(new Cell("25", Color.YELLOW)))
+                .addRow(new Row()
+                        .addCell(new Cell("Bob", Color.MAGENTA))
+                        .addCell(new Cell("30", Color.CYAN)))
+                .build();
+
+        table.printTable();
+
+        // 通过列名获取列
+        List<Column> nameColumns = table.getColumnsByName("Name");
+        Column nameColumn = nameColumns.get(0);
+
+        // 在第二行的第一列添加一个 Cell
+        Cell newCell = new Cell("Charlie", Color.BLACK);
+        table.addCellAt(1, nameColumn, newCell); // 注意索引从 0 开始
+
+        // 再次打印表格
+        table.printTable();
+
+    }
+
 
     @Test
     public void testBaZi2(){
         Address address = new Address("湖南省", "长沙市", "岳麓区");
         String birthDay = "1986-09-26 21:00:00";
         Birth birth = new Birth(address, ZoneId.of("+8"), birthDay);
-        PaiPan paiPan = PaiPanUtil.getPaiPan(birth);
-        log.info("排盘信息：{}", JSON.toJSONString(paiPan));
+//        Table paiPan = PaiPanUtil.getPaiPan(birth);
+//        paiPan.printTable();
     }
     @Test
     public void testBaZi(){

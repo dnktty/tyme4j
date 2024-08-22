@@ -6,12 +6,13 @@ import com.tyme.eightchar.EightChar;
 import com.tyme.lunar.LunarHour;
 import com.tyme.solar.SolarTime;
 import com.tyme.solar.TrueSolarTime;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * @describe:
@@ -20,14 +21,42 @@ import org.apache.commons.lang3.StringUtils;
  **/
 @Slf4j
 public class PaiPanUtil {
-    public static PaiPan getPaiPan(Birth birth) {
-        PaiPan paiPan = new PaiPan();
-        paiPan.setBirth(birth);
+    /*public static Table getPaiPan(Birth birth) {
+        Table table = TableBuilder.builder()
+                .addHeader("Name")
+                .addHeader("Age")
+                .addRow(new Row()
+                        .addCell(new Cell("Alice", Color.RED))
+                        .addCell(new Cell("25", Color.YELLOW)))
+                .addRow(new Row()
+                        .addCell(new Cell("Bob", Color.MAGENTA))
+                        .addCell(new Cell("30", Color.CYAN)))
+                .build();
+
+
+        // 在第二行的第一列添加一个 Cell
+        Cell newCell = new Cell("Charlie", Color.BLACK);
+        table.addCellAt(1, 0, newCell); // 注意索引从 0 开始
+
+        // 再次打印表格
+        table.printTable();
+
+        Table paiPan =
+                Table.create("paipan")
+                        .addColumns(
+                                StringColumn.create("年柱", animals),
+                                StringColumn.create("月柱", animals),
+                                StringColumn.create("日柱", animals),
+                                StringColumn.create("时柱", animals),
+                                StringColumn.create("大运", animals),
+                                StringColumn.create("流年", animals),
+                                StringColumn.create("流月", animals));
         EightChar eightChar = getEightChar(birth);
+        paiPan.addRow(0, Table.create().addColumns(StringColumn..create("xxxx", "a"), DoubleColumn.create("xx", 1.0)));
         paiPan.setHeavenStem(new TimeDimension(eightChar.getYear().getHeavenStem().getName(), eightChar.getMonth().getHeavenStem().getName(), eightChar.getDay().getHeavenStem().getName(), eightChar.getHour().getHeavenStem().getName()));
         paiPan.setEarthBranch(new TimeDimension(eightChar.getYear().getEarthBranch().getName(), eightChar.getMonth().getEarthBranch().getName(), eightChar.getDay().getEarthBranch().getName(), eightChar.getHour().getEarthBranch().getName()));
         return paiPan;
-    }
+    }*/
 
 
     public static EightChar getEightChar(Birth birth){
@@ -49,4 +78,5 @@ public class PaiPanUtil {
         log.debug(" {} {} {} {}", lunarHour.getEightChar().getYear().getName(), lunarHour.getEightChar().getMonth().getName(), lunarHour.getEightChar().getDay().getName(), lunarHour.getEightChar().getHour().next(0).getName());
         return lunarHour.getEightChar();
     }
+
 }
