@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 /**
  * @describe:
@@ -29,22 +28,23 @@ import java.util.List;
 public class TymeAppTest {
     @Test
     public void testTable(){
-        Table table = TableBuilder.builder()
-                .addColumn(new Column("Name", Color.BLUE))
-                .addColumn(new Column("Age", Color.GREEN))
-                .addHeader("Name")
-                .addHeader("Age")
-                .addRow(new Row()
+        Table table = TableBuilder.builder().build()
+                .addColumn(new Column(new Header("类目", Color.RED)))
+                .addColumn(new Column(new Header("地址", Color.RED)))
+                .addColumn(new Column(new Header("年龄", Color.RED)))
+                .addRow(new Row(new Header("天", Color.RED))
                         .addCell(new Cell("Alice", Color.RED))
                         .addCell(new Cell("25", Color.YELLOW)))
-                .addRow(new Row()
-                        .addCell(new Cell("Bob", Color.MAGENTA))
-                        .addCell(new Cell("30", Color.CYAN)))
-                .build();
+                .addRow(new Row(new Header("地", Color.RED)));
+
+
+        table.getRowByName("地")
+                .addCell(new Cell("Bob", Color.MAGENTA))
+                .addCell(new Cell("30", Color.CYAN));
 
         table.printTable();
 
-        // 通过列名获取列
+      /*  // 通过列名获取列
         List<Column> nameColumns = table.getColumnsByName("Name");
         Column nameColumn = nameColumns.get(0);
 
@@ -53,7 +53,7 @@ public class TymeAppTest {
         table.addCellAt(1, nameColumn, newCell); // 注意索引从 0 开始
 
         // 再次打印表格
-        table.printTable();
+        table.printTable();*/
 
     }
 

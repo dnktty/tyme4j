@@ -1,6 +1,9 @@
 package com.tyme.table;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +11,17 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 public class Row {
+    public Row(Header header, List<Cell> cells){
+        this.header = header;
+        this.cells = cells;
+    }
+    public Row(Header header){
+        this.header = header;
+        this.cells = new ArrayList<>();
+    }
+    private Header<T> header;
+    private int index;
     private List<Cell> cells;
 
     public Row addCell(Cell cell) {

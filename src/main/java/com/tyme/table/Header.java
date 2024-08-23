@@ -2,34 +2,27 @@ package com.tyme.table;
 
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
-public class Header {
-    private List<String> headers;
-
-    public void addHeader(String header) {
-        if (headers == null) {
-            headers = new ArrayList<>();
-        }
-        headers.add(header);
+public class Header<T> {
+    public Header(int index,int span, String name, Color color) {
+        this.index = index;
+        this.span = span;
+        this.name = name;
+        this.color = color;
     }
-
-    public void insertHeader(int index, String header) {
-        if (headers == null) {
-            headers = new ArrayList<>();
-        }
-        headers.add(index, header);
+    public Header(String name, Color color) {
+        this.name = name;
+        this.color = color;
     }
-
-    public void removeHeader(int index) {
-        if (headers != null) {
-            headers.remove(index);
-        }
+    public Header(String name) {
+        this.name = name;
     }
+    private int index = 0;
+    private int span = 1;
+    private String name;
+    private Color color = Color.RESET;
+    private T type;
 }

@@ -41,28 +41,6 @@ public class TableBuilder {
         return this;
     }
 
-    public TableBuilder addHeader(String header) {
-        if (table.getHeader() == null) {
-            table.setHeader(new Header());
-        }
-        table.getHeader().addHeader(header);
-        return this;
-    }
-
-    public TableBuilder insertHeader(int index, String header) {
-        if (table.getHeader() == null) {
-            table.setHeader(new Header());
-        }
-        table.getHeader().insertHeader(index, header);
-        return this;
-    }
-
-    public TableBuilder removeHeader(int index) {
-        if (table.getHeader() != null) {
-            table.getHeader().removeHeader(index);
-        }
-        return this;
-    }
 
     public Table build() {
         return table;

@@ -1,109 +1,105 @@
 package com.tyme.table;
-import lombok.*;
-import java.util.*;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class Table {
 
     private List<Row> rows = new ArrayList<>();
-    private List<Column> columns = new ArrayList<>();
-    private Header header;
-    private Map<Column, Integer> columnIndices = new HashMap<>();
-
+    private List<Header> rowHeaders = new ArrayList<>();
+    private List<Header> columnHeaders = new ArrayList<>();
     public Table addRow(Row row) {
-        this.getRows().add(row);
+        insertRow(rows.size(), row);
         return this;
     }
 
     public Table insertRow(int index, Row row) {
-        this.getRows().add(index, row);
+        row.getHeader().setIndex(index);
+        rowHeaders.add(index, row.getHeader());
+        rows.add(index, row);
         return this;
     }
 
     public Table removeRow(int index) {
-        this.getRows().remove(index);
+        rows.remove(index);
         return this;
     }
 
     public Table addColumn(Column column) {
-        int columnIndex = this.getColumns().size();
-        this.getColumns().add(column);
-        this.columnIndices.put(column, columnIndex);
-        for (Row row : this.getRows()) {
-            row.addCell(new Cell());
-        }
+        insertColumn(columnHeaders.size(), column);
         return this;
     }
 
     public Table insertColumn(int index, Column column) {
-        this.getColumns().add(index, column);
-        this.columnIndices.put(column, index);
-        for (Row row : this.getRows()) {
-            row.insertCell(index, new Cell());
+        Header columnHeader = column.getHeader();
+        columnHeader.setIndex(index);
+        columnHeaders.add(index, column.getHeader());
+        for (int i=0;i<rows.size();i++) {
+            Row row  = rows.get(i);
+            row.insertCell(index, (Cell)column.getCells().get(i));
         }
         return this;
     }
 
     public Table removeColumn(int index) {
-        Column removedColumn = this.getColumns().remove(index);
-        this.columnIndices.remove(removedColumn);
-        for (Row row : this.getRows()) {
+        columnHeaders.remove(index);
+        for (int i=0;i<rows.size();i++) {
+            Row row  = rows.get(i);
             row.removeCell(index);
         }
-        updateColumnIndices();
         return this;
     }
 
-    private void updateColumnIndices() {
-        for (int i = 0; i < this.getColumns().size(); i++) {
-            this.columnIndices.put(this.getColumns().get(i), i);
-        }
-    }
-
-    public List<Cell> getCellsForColumn(Column column) {
-        int columnIndex = this.columnIndices.get(column);
-        return this.getRows().stream()
-                .map(row -> row.getCells().get(columnIndex))
-                .collect(Collectors.toList());
-    }
-
-    public List<Column> getColumnsByName(String columnName) {
-        return this.getColumns().stream()
+    public Column getColumnByName(String columnName) {
+        Header cloumnHeader = columnHeaders.stream()
                 .filter(column -> column.getName().equals(columnName))
+                .collect(Collectors.toList()).get(0);
+        List<Cell> cells = rows.stream()
+                .map(row -> row.getCells().get(cloumnHeader.getIndex()))
                 .collect(Collectors.toList());
+        return new Column(cloumnHeader, cells);
+    }
+    public Row getRowByName(String rowName) {
+        List<Header> headers = rowHeaders.stream()
+                .filter(header -> header.getName().equals(rowName))
+                .collect(Collectors.toList());
+        Header rowHeader = headers.get(0);
+        return rows.get(rowHeader.getIndex());
     }
 
-    public void addCellAt(int rowIndex, Column column, Cell cell) {
-        int columnIndex = this.columnIndices.get(column);
-        Row row = this.getRows().get(rowIndex);
-        int currentCellCount = row.getCells().size();
-        if (currentCellCount <= columnIndex) {
-            for (int i = currentCellCount; i <= columnIndex; i++) {
-                row.addCell(new Cell());
-            }
-        }
-        row.getCells().set(columnIndex, cell);
+    public void addCellAt(int rowIndex, int columnIndex, Cell cell) {
+        rows.get(rowIndex).insertCell(columnIndex, cell);
     }
 
     public void printTable() {
         // 打印表头
         StringBuilder headerBuilder = new StringBuilder();
-        headerBuilder.append(Color.BOLD.getCode());
-        for (String headerText : this.header.getHeaders()) {
-            headerBuilder.append(headerText).append(" | ");
+        for (Header columnHeader : this.columnHeaders) {
+            headerBuilder.append(columnHeader.getColor().getCode());
+            headerBuilder.append(columnHeader.getName()).append(" | ");
         }
-        headerBuilder.append(Color.RESET.getCode()).append(System.lineSeparator());
+        headerBuilder.append(Color.RESET.getCode());
         System.out.println(headerBuilder.toString());
 
         // 打印表格数据
-        for (Row row : this.getRows()) {
+        for (int i=0;i<rows.size();i++) {
+            Row row = rows.get(i);
             StringBuilder rowBuilder = new StringBuilder();
-            for (Cell cell : row.getCells()) {
+            Header rowHeader = rowHeaders.get(i);
+            rowBuilder.append(rowHeader.getColor().getCode())
+                    .append(rowHeader.getName()).append(" | ");;
+            for (int j=0;j<row.getCells().size();j++) {
+                Cell cell = row.getCells().get(j);
                 rowBuilder.append(cell.getColor().getCode())
                         .append(cell.getValue())
                         .append(Color.RESET.getCode())
