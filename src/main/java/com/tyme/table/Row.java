@@ -3,7 +3,6 @@ package com.tyme.table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.apache.poi.ss.formula.functions.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ public class Row {
         this.header = header;
         this.cells = new ArrayList<>();
     }
-    private Header<T> header;
+    private Header header;
     private int index;
     private List<Cell> cells;
 

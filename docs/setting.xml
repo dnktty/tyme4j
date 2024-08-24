@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <!--本地仓库的路径-->
+    <!--<localRepository>D:\m2\repository</localRepository>-->
+    <!--maven是否需要和用户交互以获得输入 默认为true-->
+    <interactiveMode>true</interactiveMode>
+    <!--是否需要plugin-registry.xml文件来管理插件版本-->
+    <usePluginRegistry>false</usePluginRegistry>
+    <!--是否需要离线模式下运行-->
+    <offline>false</offline>
+    <pluginGroups>
+        <!--插件组织-->
+    </pluginGroups>
+    <servers>
+        <!--打包上传到私服时，设置私服的鉴权信息-->
+        <server>
+            <!--server的id 不是用户登录的id 该id与distributionManager中repository元素的id相匹配-->
+            <id>maven-releases</id>
+            <!--用户名密码-->
+            <username>admin</username>
+            <password>xxx</password>
+            <!--鉴权时的私钥位置-->
+            <!--<privateKey>~/.ssh/id_dsa</privateKey>-->
+            <!--<passphrase>私钥密码</passphrase>-->
+            <!--文件被创建时的权限-->
+            <filePermissions>664</filePermissions>
+            <!--目录被创建时的权限-->
+            <directoryPermissions>775</directoryPermissions>
+        </server>
+        <server>
+            <id>maven-snapshots</id>
+            <username>admin</username>
+            <password>xxx</password>
+        </server>
+    </servers>
+    <mirrors>
+        <!--
+        | 1、在mirrorOf与repository Id相同的时候优先是使用mirror的地址
+        | 2、mirrorOf等于*的时候覆盖所有repository配置
+        | 3、存在多个mirror配置的时候mirrorOf等于*放到最后
+        | 4、只配置mirrorOf为central的时候可以不用配置repository
+        -->
+        <!-- 被镜像的服务器的id, 必须与 repository 节点设置的 ID 一致
+         | mirrorOf 的配置语法:
+         | *           = 匹配所有远程仓库。 这样所有 pom 中定义的仓库都不生效
+         | external:*  = 匹配除 localhost、使用 file:// 协议外的所有远程仓库
+         | repo1,repo2 = 匹配仓库 repo1 和 repo2
+         | *,!repo1    = 匹配所有远程仓库, repo1 除外
+         |-->
+        <!--mirror可以拦截对远程仓库的请求 , 改变对目标仓库的下载地址-->
+        <mirror>
+            <!--该镜像的唯一标识-->
+            <id>central</id>
+            <!--该镜像服务器的id-->
+            <mirrorOf>central</mirrorOf>
+            <!--镜像名称-->
+            <name>阿里云公共仓库</name>
+            <url>https://maven.aliyun.com/repository/central</url>
+        </mirror>
+        <mirror>
+            <id>public</id>
+            <mirrorOf>public</mirrorOf>
+            <name>阿里云公共仓库</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </mirror>
+        <mirror>
+            <id>taocodePublic</id>
+            <mirrorOf>taocodepulic</mirrorOf>
+            <name>taocode nexus</name>
+            <url>http://mvnrepo.code.taobao.org/nexus/content/repositories/public/</url>
+        </mirror>
+        <mirror>
+            <id>aliyun-google</id>
+            <mirrorOf>google</mirrorOf>
+            <name>阿里云google仓库</name>
+            <url>https://maven.aliyun.com/repository/google</url>
+        </mirror>
+        <mirror>
+            <id>aliyun-gradle</id>
+            <mirrorOf>gradle-plugin</mirrorOf>
+            <name>阿里云gradle仓库</name>
+            <url>https://maven.aliyun.com/repository/gradle-plugin</url>
+        </mirror>
+        <mirror>
+            <id>aliyun-spring</id>
+            <mirrorOf>spring</mirrorOf>
+            <name>阿里云spring仓库</name>
+            <url>https://maven.aliyun.com/repository/spring</url>
+        </mirror>
+        <mirror>
+            <id>aliyun-spring-plugin</id>
+            <mirrorOf>spring-plugin</mirrorOf>
+            <name>阿里云spring-plugin仓库</name>
+            <url>https://maven.aliyun.com/repository/spring-plugin</url>
+        </mirror>
+        <mirror>
+            <id>aliyun-grails-core</id>
+            <mirrorOf>grails-core</mirrorOf>
+            <name>阿里云grails-core仓库</name>
+            <url>https://maven.aliyun.com/repository/grails-core</url>
+        </mirror>
+        <mirror>
+            <id>aliyun-apache-snapshots</id>
+            <mirrorOf>apache snapshots</mirrorOf>
+            <name>阿里云apache-snapshots仓库</name>
+            <url>https://maven.aliyun.com/repository/apache-snapshots</url>
+        </mirror>
+
+    </mirrors>
+    <profiles>
+        <profile>
+            <id>central</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <jdk>1.8</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.source>1.8</maven.compiler.source>
+                <maven.compiler.target>1.8</maven.compiler.target>
+                <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+            </properties>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <!--手动激活profile id-->
+        <activeProfile>central</activeProfile>
+    </activeProfiles>
+</settings>
+

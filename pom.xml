@@ -60,21 +60,12 @@
         <maven-release-plugin-version>2.2.2</maven-release-plugin-version>
         <maven-gpg-plugin-version>1.6</maven-gpg-plugin-version>
         <maven-assembly-plugin-version>2.2-beta-5</maven-assembly-plugin-version>
+        <gpg.passphrase>password</gpg.passphrase>
 
         <lombok.version>1.18.20</lombok.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>5.2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>5.2.2</version>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -120,8 +111,8 @@
         </dependency>
 
     </dependencies>
-    <repositories>
-        <!-- 如果需要，还可以添加其他仓库 -->
+<!--    <repositories>
+        &lt;!&ndash; 如果需要，还可以添加其他仓库 &ndash;&gt;
         <repository>
             <id>central</id>
             <name>Maven Central Repository</name>
@@ -133,7 +124,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-    </repositories>
+    </repositories>-->
     <build>
         <plugins>
             <plugin>
