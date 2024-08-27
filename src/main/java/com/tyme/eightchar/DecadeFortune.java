@@ -1,14 +1,20 @@
 package com.tyme.eightchar;
 
 import com.tyme.AbstractTyme;
+import com.tyme.lunar.LunarDay;
 import com.tyme.lunar.LunarYear;
 import com.tyme.sixtycycle.SixtyCycle;
+import com.tyme.solar.SolarDay;
+import lombok.extern.slf4j.Slf4j;
+
+import java.time.LocalDateTime;
 
 /**
  * 大运（10年1大运）
  *
  * @author 6tail
  */
+@Slf4j
 public class DecadeFortune extends AbstractTyme {
 
   /**
@@ -100,4 +106,19 @@ public class DecadeFortune extends AbstractTyme {
     return Fortune.fromChildLimit(childLimit, index * 10);
   }
 
+  /**
+   * 当前大运
+   * @return
+   */
+  public DecadeFortune getCurrentDecadeFortune() {
+    //当前时间
+    LocalDateTime now = LocalDateTime.now();
+    SolarDay solarDay = SolarDay.fromYmd(now.getYear(), now.getMonth().getValue(), now.getDayOfMonth());
+    LunarDay lunarDay = solarDay.getLunarDay();
+    DecadeFortune decadeFortune = this;
+    while (!(lunarDay.getYear()>=decadeFortune.getStartLunarYear().getYear() && lunarDay.getYear()<=decadeFortune.getEndLunarYear().getYear())){
+      decadeFortune = decadeFortune.next(1);
+    }
+    return decadeFortune;
+  }
 }

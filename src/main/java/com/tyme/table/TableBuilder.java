@@ -42,6 +42,12 @@ public class TableBuilder {
     }
 
 
+    public Table build(int rowSize) {
+        for(int i=0;i<rowSize;i++){
+            table.getRows().add(new Row());
+        }
+        return table;
+    }
     public Table build() {
         return table;
     }

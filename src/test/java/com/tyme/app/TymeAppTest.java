@@ -44,17 +44,6 @@ public class TymeAppTest {
 
         table.printTable();
 
-      /*  // 通过列名获取列
-        List<Column> nameColumns = table.getColumnsByName("Name");
-        Column nameColumn = nameColumns.get(0);
-
-        // 在第二行的第一列添加一个 Cell
-        Cell newCell = new Cell("Charlie", Color.BLACK);
-        table.addCellAt(1, nameColumn, newCell); // 注意索引从 0 开始
-
-        // 再次打印表格
-        table.printTable();*/
-
     }
 
 
@@ -62,9 +51,8 @@ public class TymeAppTest {
     public void testBaZi2(){
         Address address = new Address("湖南省", "长沙市", "岳麓区");
         String birthDay = "1986-09-26 21:00:00";
-        Birth birth = new Birth(address, ZoneId.of("+8"), birthDay);
-//        Table paiPan = PaiPanUtil.getPaiPan(birth);
-//        paiPan.printTable();
+        Birth birth = new Birth(address, ZoneId.of("+8"), birthDay, Gender.MAN);
+        PaiPanUtil.getPaiPan(birth);
     }
     @Test
     public void testBaZi(){

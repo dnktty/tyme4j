@@ -19,6 +19,9 @@ public class Row {
         this.header = header;
         this.cells = new ArrayList<>();
     }
+    public Row(){
+        this.cells = new ArrayList<>();
+    }
     private Header header;
     private int index;
     private List<Cell> cells;

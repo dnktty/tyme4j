@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +15,12 @@ import java.util.stream.Collectors;
 @Setter
 @ToString
 @NoArgsConstructor
+@Slf4j
 public class Table {
-
+    // 获取最长数字的长度，以便统一列宽
+    private static final int maxLength = 10;
+    private String name;
+    private String title;
     private List<Row> rows = new ArrayList<>();
     private List<Header> rowHeaders = new ArrayList<>();
     private List<Header> columnHeaders = new ArrayList<>();
@@ -76,36 +82,65 @@ public class Table {
         Header rowHeader = headers.get(0);
         return rows.get(rowHeader.getIndex());
     }
+    public Row getRowByIndex(int index) {
+        return rows.get(index);
+    }
 
     public void addCellAt(int rowIndex, int columnIndex, Cell cell) {
         rows.get(rowIndex).insertCell(columnIndex, cell);
     }
 
     public void printTable() {
+        log.info("Table: {} - {}", this.name, this.title);
         // 打印表头
         StringBuilder headerBuilder = new StringBuilder();
         for (Header columnHeader : this.columnHeaders) {
             headerBuilder.append(columnHeader.getColor().getCode());
-            headerBuilder.append(columnHeader.getName()).append(" | ");
+            headerBuilder.append(formatStr(columnHeader.getName())).append(" | ");
         }
         headerBuilder.append(Color.RESET.getCode());
-        System.out.println(headerBuilder.toString());
+        log.info(headerBuilder.toString());
 
         // 打印表格数据
         for (int i=0;i<rows.size();i++) {
             Row row = rows.get(i);
             StringBuilder rowBuilder = new StringBuilder();
-            Header rowHeader = rowHeaders.get(i);
-            rowBuilder.append(rowHeader.getColor().getCode())
-                    .append(rowHeader.getName()).append(" | ");;
+            if(rowHeaders.size()>0){
+                Header rowHeader = rowHeaders.get(i);
+                rowBuilder.append(rowHeader.getColor().getCode())
+                        .append(formatStr(rowHeader.getName())).append(" | ");;
+            }
             for (int j=0;j<row.getCells().size();j++) {
                 Cell cell = row.getCells().get(j);
                 rowBuilder.append(cell.getColor().getCode())
-                        .append(cell.getValue())
+                        .append(formatStr(cell.getValue()))
                         .append(Color.RESET.getCode())
                         .append(" | ");
             }
-            System.out.println(rowBuilder.toString());
+            log.info(rowBuilder.toString());
         }
     }
+    private String formatStr(Object str){
+        if(null == str){
+            str = "";
+        }
+        String res = String.format("%-" + (maxLength-calculateWidth(str.toString())) + "s", str);
+        return res;
+    }
+
+    // 计算字符串的实际宽度（考虑中文字符）
+    private static int calculateWidth(String str) {
+        int width = 0;
+        for (char c : str.toCharArray()) {
+            // 判断是否为全角字符
+            if (c >= '\u4e00' && c <= '\u9fff') {
+                width += 1; // 全角字符占两个位置
+            } else {
+                width += 0; // 半角字符占一个位置
+            }
+        }
+//        log.info("str:{},width:{}",str,width);
+        return width;
+    }
+
 }
