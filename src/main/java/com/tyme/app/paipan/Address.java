@@ -1,4 +1,4 @@
-package com.tyme.app;
+package com.tyme.app.paipan;
 
 import lombok.Data;
 

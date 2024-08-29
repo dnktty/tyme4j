@@ -1,4 +1,4 @@
-package com.tyme.table;
+package com.tyme.app.table;
 
 import lombok.*;
 

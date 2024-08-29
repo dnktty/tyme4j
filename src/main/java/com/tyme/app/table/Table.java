@@ -1,11 +1,10 @@
-package com.tyme.table;
+package com.tyme.app.table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class Table {
     // 获取最长数字的长度，以便统一列宽
-    private static final int maxLength = 10;
+    private int maxLength = 10;
     private String name;
     private String title;
     private List<Row> rows = new ArrayList<>();

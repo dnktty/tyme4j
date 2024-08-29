@@ -1,4 +1,4 @@
-package com.tyme.app;
+package com.tyme.app.paipan;
 
 import com.tyme.enums.Gender;
 import lombok.Data;

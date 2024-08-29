@@ -1,12 +1,12 @@
-package com.tyme.app;
+package com.tyme.app.paipan;
 
+import com.tyme.app.table.*;
 import com.tyme.constants.CharConstant;
 import com.tyme.ditu.Geography;
 import com.tyme.ditu.GeographyUtil;
 import com.tyme.eightchar.ChildLimit;
 import com.tyme.eightchar.DecadeFortune;
 import com.tyme.eightchar.EightChar;
-import com.tyme.eightchar.Fortune;
 import com.tyme.lunar.LunarHour;
 import com.tyme.lunar.LunarMonth;
 import com.tyme.lunar.LunarYear;
@@ -16,7 +16,6 @@ import com.tyme.sixtycycle.SixtyCycle;
 import com.tyme.solar.SolarTerm;
 import com.tyme.solar.SolarTime;
 import com.tyme.solar.TrueSolarTime;
-import com.tyme.table.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
