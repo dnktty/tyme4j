@@ -123,35 +123,24 @@ public class PaiPanUtil {
               new Cell(
                   flowLunarMonth.getSixtyCycle().getEarthBranch(),
                   flowLunarMonth.getSixtyCycle().getEarthBranch().getElement().getColor()));
-      HeavenStem heavenStemMain = flowLunarMonthSixtyCycle.getEarthBranch().getHideHeavenStemMain();
-      if (null != heavenStemMain) {
-        table
-            .getRowByName("藏干-本气")
-            .addCell(
-                new Cell(
-                    eightChar.getDay().getHeavenStem().getTenStar(heavenStemMain),
-                    heavenStemMain.getElement().getColor()));
-      }
-      HeavenStem heavenStemMiddle =
-          flowLunarMonthSixtyCycle.getEarthBranch().getHideHeavenStemMiddle();
-      if (null != heavenStemMiddle) {
-        table
-            .getRowByName("藏干-中气")
-            .addCell(
-                new Cell(
-                    eightChar.getDay().getHeavenStem().getTenStar(heavenStemMiddle),
-                    heavenStemMiddle.getElement().getColor()));
-      }
-      HeavenStem heavenStemResidual =
-          flowLunarMonthSixtyCycle.getEarthBranch().getHideHeavenStemResidual();
-      if (null != heavenStemResidual) {
-        table
-            .getRowByName("藏干-余气")
-            .addCell(
-                new Cell(
-                    eightChar.getDay().getHeavenStem().getTenStar(heavenStemResidual),
-                    heavenStemResidual.getElement().getColor()));
-      }
+      table
+          .getRowByName("藏干-本气")
+          .addCell(
+              hideHeavenStemStr(
+                  flowLunarMonthSixtyCycle.getEarthBranch().getHideHeavenStemMain(),
+                  eightChar.getDay().getHeavenStem()));
+      table
+          .getRowByName("藏干-中气")
+          .addCell(
+              hideHeavenStemStr(
+                  flowLunarMonthSixtyCycle.getEarthBranch().getHideHeavenStemMiddle(),
+                  eightChar.getDay().getHeavenStem()));
+      table
+          .getRowByName("藏干-余气")
+          .addCell(
+              hideHeavenStemStr(
+                  flowLunarMonthSixtyCycle.getEarthBranch().getHideHeavenStemResidual(),
+                  eightChar.getDay().getHeavenStem()));
     }
     return table;
   }
@@ -207,35 +196,24 @@ public class PaiPanUtil {
               new Cell(
                   flowLunarYearSixtyCycle.getEarthBranch(),
                   flowLunarYearSixtyCycle.getEarthBranch().getElement().getColor()));
-      HeavenStem heavenStemMain = flowLunarYearSixtyCycle.getEarthBranch().getHideHeavenStemMain();
-      if (null != heavenStemMain) {
-        table
-            .getRowByName("藏干-本气")
-            .addCell(
-                new Cell(
-                    eightChar.getDay().getHeavenStem().getTenStar(heavenStemMain),
-                    heavenStemMain.getElement().getColor()));
-      }
-      HeavenStem heavenStemMiddle =
-          flowLunarYearSixtyCycle.getEarthBranch().getHideHeavenStemMiddle();
-      if (null != heavenStemMiddle) {
-        table
-            .getRowByName("藏干-中气")
-            .addCell(
-                new Cell(
-                    eightChar.getDay().getHeavenStem().getTenStar(heavenStemMiddle),
-                    heavenStemMiddle.getElement().getColor()));
-      }
-      HeavenStem heavenStemResidual =
-          flowLunarYearSixtyCycle.getEarthBranch().getHideHeavenStemResidual();
-      if (null != heavenStemResidual) {
-        table
-            .getRowByName("藏干-余气")
-            .addCell(
-                new Cell(
-                    eightChar.getDay().getHeavenStem().getTenStar(heavenStemResidual),
-                    heavenStemResidual.getElement().getColor()));
-      }
+      table
+          .getRowByName("藏干-本气")
+          .addCell(
+              hideHeavenStemStr(
+                  flowLunarYearSixtyCycle.getEarthBranch().getHideHeavenStemMain(),
+                  eightChar.getDay().getHeavenStem()));
+      table
+          .getRowByName("藏干-中气")
+          .addCell(
+              hideHeavenStemStr(
+                  flowLunarYearSixtyCycle.getEarthBranch().getHideHeavenStemMiddle(),
+                  eightChar.getDay().getHeavenStem()));
+      table
+          .getRowByName("藏干-余气")
+          .addCell(
+              hideHeavenStemStr(
+                  flowLunarYearSixtyCycle.getEarthBranch().getHideHeavenStemResidual(),
+                  eightChar.getDay().getHeavenStem()));
       flowLunarYear = flowLunarYear.next(1);
     }
     return table;
@@ -306,36 +284,24 @@ public class PaiPanUtil {
                 startDecaFortuneSixtyCycle.getEarthBranch(),
                 startDecaFortuneSixtyCycle.getEarthBranch().getElement().getColor()));
 
-    HeavenStem heavenStemMain1 =
-        startDecaFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMain();
-    if (null != heavenStemMain1) {
-      table
-          .getRowByName("藏干-本气")
-          .addCell(
-              new Cell(
-                  eightChar.getDay().getHeavenStem().getTenStar(heavenStemMain1),
-                  heavenStemMain1.getElement().getColor()));
-    }
-    HeavenStem heavenStemMiddle1 =
-        startDecaFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMiddle();
-    if (null != heavenStemMiddle1) {
-      table
-          .getRowByName("藏干-中气")
-          .addCell(
-              new Cell(
-                  eightChar.getDay().getHeavenStem().getTenStar(heavenStemMiddle1),
-                  heavenStemMiddle1.getElement().getColor()));
-    }
-    HeavenStem heavenStemResidual1 =
-        startDecaFortuneSixtyCycle.getEarthBranch().getHideHeavenStemResidual();
-    if (null != heavenStemResidual1) {
-      table
-          .getRowByName("藏干-余气")
-          .addCell(
-              new Cell(
-                  eightChar.getDay().getHeavenStem().getTenStar(heavenStemResidual1),
-                  heavenStemResidual1.getElement().getColor()));
-    }
+    table
+        .getRowByName("藏干-本气")
+        .addCell(
+            hideHeavenStemStr(
+                startDecaFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMain(),
+                eightChar.getDay().getHeavenStem()));
+    table
+        .getRowByName("藏干-中气")
+        .addCell(
+            hideHeavenStemStr(
+                startDecaFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMiddle(),
+                eightChar.getDay().getHeavenStem()));
+    table
+        .getRowByName("藏干-余气")
+        .addCell(
+            hideHeavenStemStr(
+                startDecaFortuneSixtyCycle.getEarthBranch().getHideHeavenStemResidual(),
+                eightChar.getDay().getHeavenStem()));
     for (int i = 0; i < FORTURE_SIZE; i++) {
       SixtyCycle decadeFortuneSixtyCycle = decadeFortune.getSixtyCycle();
       table
@@ -365,35 +331,24 @@ public class PaiPanUtil {
               new Cell(
                   decadeFortune.getSixtyCycle().getEarthBranch(),
                   decadeFortune.getSixtyCycle().getEarthBranch().getElement().getColor()));
-      HeavenStem heavenStemMain = decadeFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMain();
-      if (null != heavenStemMain) {
-        table
-            .getRowByName("藏干-本气")
-            .addCell(
-                new Cell(
-                    eightChar.getDay().getHeavenStem().getTenStar(heavenStemMain),
-                    heavenStemMain.getElement().getColor()));
-      }
-      HeavenStem heavenStemMiddle =
-          decadeFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMiddle();
-      if (null != heavenStemMiddle) {
-        table
-            .getRowByName("藏干-中气")
-            .addCell(
-                new Cell(
-                    eightChar.getDay().getHeavenStem().getTenStar(heavenStemMiddle),
-                    heavenStemMiddle.getElement().getColor()));
-      }
-      HeavenStem heavenStemResidual =
-          decadeFortuneSixtyCycle.getEarthBranch().getHideHeavenStemResidual();
-      if (null != heavenStemResidual) {
-        table
-            .getRowByName("藏干-余气")
-            .addCell(
-                new Cell(
-                    eightChar.getDay().getHeavenStem().getTenStar(heavenStemResidual),
-                    heavenStemResidual.getElement().getColor()));
-      }
+      table
+          .getRowByName("藏干-本气")
+          .addCell(
+              hideHeavenStemStr(
+                  decadeFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMain(),
+                  eightChar.getDay().getHeavenStem()));
+      table
+          .getRowByName("藏干-中气")
+          .addCell(
+              hideHeavenStemStr(
+                  decadeFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMiddle(),
+                  eightChar.getDay().getHeavenStem()));
+      table
+          .getRowByName("藏干-余气")
+          .addCell(
+              hideHeavenStemStr(
+                  decadeFortuneSixtyCycle.getEarthBranch().getHideHeavenStemResidual(),
+                  eightChar.getDay().getHeavenStem()));
       decadeFortune = decadeFortune.next(1);
     }
     return table;
@@ -548,8 +503,7 @@ public class PaiPanUtil {
             .addCell(
                 hideHeavenStemStr(
                     monthSixtyCycle.getEarthBranch().getHideHeavenStemMain(),
-                    dayPillar.getHeavenStem()))
-    );
+                    dayPillar.getHeavenStem())));
     table.addRow(
         new Row(new Header("藏干-中气", Color.BOLD))
             .addCell(
@@ -579,8 +533,7 @@ public class PaiPanUtil {
             .addCell(
                 hideHeavenStemStr(
                     monthSixtyCycle.getEarthBranch().getHideHeavenStemMiddle(),
-                    dayPillar.getHeavenStem()))
-    );
+                    dayPillar.getHeavenStem())));
     table.addRow(
         new Row(new Header("藏干-余气", Color.BOLD))
             .addCell(
@@ -610,8 +563,7 @@ public class PaiPanUtil {
             .addCell(
                 hideHeavenStemStr(
                     monthSixtyCycle.getEarthBranch().getHideHeavenStemResidual(),
-                    dayPillar.getHeavenStem()))
-    );
+                    dayPillar.getHeavenStem())));
     table.addRow(
         new Row(new Header("地势", Color.BOLD))
             .addCell(
@@ -653,8 +605,7 @@ public class PaiPanUtil {
             .addCell(
                 new Cell(extraEarthBranchStr(monthPillar.getExtraEarthBranches()), Color.RESET))
             .addCell(new Cell(extraEarthBranchStr(dayPillar.getExtraEarthBranches()), Color.RESET))
-            .addCell(
-                new Cell(extraEarthBranchStr(hourPillar.getExtraEarthBranches()), Color.RESET))
+            .addCell(new Cell(extraEarthBranchStr(hourPillar.getExtraEarthBranches()), Color.RESET))
             .addCell(new Cell(CharConstant.MIDDLE, Color.RESET)));
 
     return table;
@@ -678,9 +629,7 @@ public class PaiPanUtil {
     }
     return new Cell(
         StringUtils.join(
-            heavenStem.getName(),
-            CharConstant.PERIOD,
-            dayHeavenStem.getTenStar(heavenStem)),
+            heavenStem.getName(), CharConstant.PERIOD, dayHeavenStem.getTenStar(heavenStem)),
         heavenStem.getElement().getColor());
   }
 
