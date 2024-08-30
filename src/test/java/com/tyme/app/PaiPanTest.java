@@ -4,6 +4,7 @@ import com.tyme.app.paipan.Address;
 import com.tyme.app.paipan.Birth;
 import com.tyme.app.paipan.PaiPanUtil;
 import com.tyme.app.table.*;
+import com.tyme.culture.Color;
 import com.tyme.ditu.Geography;
 import com.tyme.ditu.GeographyUtil;
 import com.tyme.eightchar.ChildLimit;

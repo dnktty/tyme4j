@@ -13,6 +13,7 @@ public class Direction extends LoopTyme {
    * 依据后天八卦排序（0坎北, 1坤西南, 2震东, 3巽东南, 4中, 5乾西北, 6兑西, 7艮东北, 8离南）
    */
   public static final String[] NAMES = {"北", "西南", "东", "东南", "中", "西北", "西", "东北", "南"};
+  public static final String[] BA_GUA = {"坎（kǎn）", "坤（kūn）", "震（zhèn）", "巽（xùn）", "中", "乾（qián）", "兑（duì）", "艮（gèn）", "离（lí）"};
 
   public Direction(int index) {
     super(NAMES, index);
@@ -41,6 +42,14 @@ public class Direction extends LoopTyme {
    */
   public Land getLand() {
     return Land.fromIndex(index);
+  }
+
+  /**
+   * 八卦方位
+   * @return
+   */
+  public String getBaGua() {
+    return BA_GUA[index];
   }
 
   /**

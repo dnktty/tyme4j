@@ -42,10 +42,9 @@ public class TableBuilder {
     }
 
 
-    public Table build(int rowSize) {
-        for(int i=0;i<rowSize;i++){
-            table.getRows().add(new Row());
-        }
+    public Table build(String name , String title) {
+        table.setName(name);
+        table.setTitle(title);
         return table;
     }
     public Table build() {

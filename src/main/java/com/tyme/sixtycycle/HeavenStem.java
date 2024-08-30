@@ -5,6 +5,7 @@ import com.tyme.culture.*;
 import com.tyme.culture.pengzu.PengZuHeavenStem;
 import com.tyme.culture.star.ten.TenStar;
 import com.tyme.enums.YinYang;
+import lombok.NoArgsConstructor;
 
 /**
  * 天干
@@ -14,6 +15,7 @@ import com.tyme.enums.YinYang;
 public class HeavenStem extends LoopTyme {
 
   public static final String[] NAMES = {"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
+  public static final String[] REPRESENTS = {"大树", "花草", "太阳火", "烛光火", "城墙土", "田园土", "矿石金", "珠宝金", "江河水", "雨露水"};
 
   public HeavenStem(int index) {
     super(NAMES, index);
@@ -96,6 +98,20 @@ public class HeavenStem extends LoopTyme {
     return Direction.fromIndex(new int[]{7, 5, 1, 8, 3}[index % 5]);
   }
 
+  /**
+   *
+   * @return 身体
+   */
+  public Organ getOrgan() {
+    return Organ.fromIndex(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}[index]);
+  }
+  /**
+   *
+   * @return 代表
+   */
+  public String getRepresent() {
+    return REPRESENTS[index];
+  }
   /**
    * 阳贵神方位（《阳贵神歌》甲戊坤艮位，乙己是坤坎，庚辛居离艮，丙丁兑与乾，震巽属何日，壬癸贵神安。）
    *

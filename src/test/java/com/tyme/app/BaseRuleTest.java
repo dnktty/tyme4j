@@ -30,12 +30,22 @@ import java.time.format.DateTimeFormatter;
  **/
 @Slf4j
 public class BaseRuleTest {
-
-
     @Test
-    public void testBaZi2(){
+    public void testHeavenStemTable(){
         Table heavenStemTable = BaseRule.getHeavenStemTable();
+        heavenStemTable.setMaxLength(10);
+        heavenStemTable.printTable();
+    }
+    @Test
+    public void testHeavenStemTableRelation(){
+        Table heavenStemTable = BaseRule.getHeavenStemTableRelation();
         heavenStemTable.setMaxLength(4);
         heavenStemTable.printTable();
+    }
+    @Test
+    public void testElementTable(){
+        Table elementTable = BaseRule.getElementTable();
+        elementTable.setMaxLength(7);
+        elementTable.printTable();
     }
 }

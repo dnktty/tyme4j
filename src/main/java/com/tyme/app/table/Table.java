@@ -1,5 +1,6 @@
 package com.tyme.app.table;
 
+import com.tyme.culture.Color;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -90,15 +91,18 @@ public class Table {
     }
 
     public void printTable() {
-        log.info("Table: {} - {}", this.name, this.title);
+        log.info("==============================================================================");
+        log.info("< {} - {} >", this.name, this.title);
         // 打印表头
         StringBuilder headerBuilder = new StringBuilder();
-        for (Header columnHeader : this.columnHeaders) {
-            headerBuilder.append(columnHeader.getColor().getCode());
-            headerBuilder.append(formatStr(columnHeader.getName())).append(" | ");
+        if(columnHeaders.size()>0){
+            for (Header columnHeader : this.columnHeaders) {
+                headerBuilder.append(columnHeader.getColor().getStyle());
+                headerBuilder.append(formatStr(columnHeader.getName())).append(" | ");
+            }
+            headerBuilder.append(Color.RESET.getStyle());
+            log.info(headerBuilder.toString());
         }
-        headerBuilder.append(Color.RESET.getCode());
-        log.info(headerBuilder.toString());
 
         // 打印表格数据
         for (int i=0;i<rows.size();i++) {
@@ -106,14 +110,14 @@ public class Table {
             StringBuilder rowBuilder = new StringBuilder();
             if(rowHeaders.size()>0){
                 Header rowHeader = rowHeaders.get(i);
-                rowBuilder.append(rowHeader.getColor().getCode())
-                        .append(formatStr(rowHeader.getName())).append(" | ");;
+                rowBuilder.append(rowHeader.getColor().getStyle())
+                        .append(formatStr(rowHeader.getName())).append(Color.RESET.getStyle()).append(" | ");;
             }
             for (int j=0;j<row.getCells().size();j++) {
                 Cell cell = row.getCells().get(j);
-                rowBuilder.append(cell.getColor().getCode())
+                rowBuilder.append(cell.getColor().getStyle())
                         .append(formatStr(cell.getValue()))
-                        .append(Color.RESET.getCode())
+                        .append(Color.RESET.getStyle())
                         .append(" | ");
             }
             log.info(rowBuilder.toString());

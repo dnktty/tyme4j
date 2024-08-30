@@ -1,5 +1,6 @@
 package com.tyme.app.table;
 
+import com.tyme.culture.Color;
 import lombok.*;
 
 @Getter
