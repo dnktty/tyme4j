@@ -2,6 +2,7 @@ package com.tyme.app.paipan;
 
 import com.tyme.app.table.*;
 import com.tyme.constants.CharConstant;
+import com.tyme.constants.TermEnum;
 import com.tyme.culture.Color;
 import com.tyme.ditu.Geography;
 import com.tyme.ditu.GeographyUtil;
@@ -34,8 +35,8 @@ import java.time.format.DateTimeFormatter;
 public class PaiPanUtil {
   private static final int FORTURE_SIZE = 9;
   private static final int FLOW_SIZE = 10;
-  private static final String CHAR_AGE = "岁";
-  private static final String CHAR_MONTH = "月";
+  private static final String CHAR_AGE = TermEnum.SUI.show();
+  private static final String CHAR_MONTH = TermEnum.MONTH.show();
 
   public static void getPaiPan(Birth birth) {
 
@@ -46,13 +47,13 @@ public class PaiPanUtil {
     ChildLimit childLimit = ChildLimit.fromSolarTime(solarTime, birth.getGender());
 
     Table baZiTable = getBaZi(solarTime, eightChar, childLimit);
-    baZiTable.printTable();
+    TableUtil.printTable(baZiTable);
     Table decadeFortuneTable = getDecadeFortune(solarTime, childLimit, eightChar);
-    decadeFortuneTable.printTable();
+    TableUtil.printTable(decadeFortuneTable);
     Table flowYearTable = getFlowYear(solarTime, childLimit, eightChar);
-    flowYearTable.printTable();
+    TableUtil.printTable(flowYearTable);
     Table flowMonthTable = getFlowMonth(solarTime, childLimit, eightChar);
-    flowMonthTable.printTable();
+    TableUtil.printTable(flowMonthTable);
   }
 
   /**
@@ -65,16 +66,17 @@ public class PaiPanUtil {
   public static Table getFlowMonth(
       SolarTime solarTime, ChildLimit childLimit, EightChar eightChar) {
     Table table = TableBuilder.builder().build();
-    table.setName("流月");
-    table
-        .addRow(new Row(new Header("月")))
-        .addRow(new Row(new Header("节气日")))
-        .addRow(new Row(new Header("天干")))
-        .addRow(new Row(new Header("天神")))
-        .addRow(new Row(new Header("地支")))
-        .addRow(new Row(new Header("藏干-本气")))
-        .addRow(new Row(new Header("藏干-中气")))
-        .addRow(new Row(new Header("藏干-余气")));
+    table.setName(TermEnum.LIU_YUE.show());
+    table.addColumn(
+        new Column(new Header(TermEnum.MONTH.show()))
+            .addCell(new Cell(TermEnum.MONTH.show()))
+            .addCell(new Cell((TermEnum.JIE_QI_RI.show())))
+            .addCell(new Cell((TermEnum.TIAN_GAN.show())))
+            .addCell(new Cell((TermEnum.GAN_SHENG.show())))
+            .addCell(new Cell((TermEnum.DI_ZHI.show())))
+            .addCell(new Cell((TermEnum.BEN_QI.show())))
+            .addCell(new Cell((TermEnum.ZHONG_QI.show())))
+            .addCell(new Cell((TermEnum.YU_QI.show()))));
     LocalDateTime localDateTime = LocalDateTime.now();
     LunarYear currentlunarYear =
         LunarYear.fromYear(
@@ -90,57 +92,42 @@ public class PaiPanUtil {
     for (LunarMonth flowLunarMonth : currentlunarYear.getMonths()) {
       SixtyCycle flowLunarMonthSixtyCycle = flowLunarMonth.getSixtyCycle();
       SolarTerm solarTerm = flowLunarMonth.getFirstJulianDay().getSolarDay().getTerm();
-      table
-          .getRowByName("月")
-          .addCell(new Cell(StringUtils.join(solarTerm.getName(), CHAR_MONTH), Color.RESET));
-      table
-          .getRowByName("节气日")
-          .addCell(
-              new Cell(
-                  StringUtils.join(
-                      solarTerm.getJulianDay().getSolarDay().getMonth(),
-                      CharConstant.PERIOD,
-                      solarTerm.getJulianDay().getSolarDay().getDay()),
-                  Color.RESET));
-      table
-          .getRowByName("天干")
-          .addCell(
-              new Cell(
-                  flowLunarMonth.getSixtyCycle().getHeavenStem(),
-                  flowLunarMonth.getSixtyCycle().getHeavenStem().getElement().getColor()));
-      table
-          .getRowByName("天神")
-          .addCell(
-              new Cell(
-                  eightChar
-                      .getDay()
-                      .getHeavenStem()
-                      .getTenStar(flowLunarMonthSixtyCycle.getHeavenStem()),
-                  flowLunarMonth.getSixtyCycle().getHeavenStem().getElement().getColor()));
-      table
-          .getRowByName("地支")
-          .addCell(
-              new Cell(
-                  flowLunarMonth.getSixtyCycle().getEarthBranch(),
-                  flowLunarMonth.getSixtyCycle().getEarthBranch().getElement().getColor()));
-      table
-          .getRowByName("藏干-本气")
-          .addCell(
-              hideHeavenStemStr(
-                  flowLunarMonthSixtyCycle.getEarthBranch().getHideHeavenStemMain(),
-                  eightChar.getDay().getHeavenStem()));
-      table
-          .getRowByName("藏干-中气")
-          .addCell(
-              hideHeavenStemStr(
-                  flowLunarMonthSixtyCycle.getEarthBranch().getHideHeavenStemMiddle(),
-                  eightChar.getDay().getHeavenStem()));
-      table
-          .getRowByName("藏干-余气")
-          .addCell(
-              hideHeavenStemStr(
-                  flowLunarMonthSixtyCycle.getEarthBranch().getHideHeavenStemResidual(),
-                  eightChar.getDay().getHeavenStem()));
+      table.addColumn(
+          new Column(new Header(StringUtils.join(solarTerm.getName(), CHAR_MONTH), Color.RESET))
+              .addCell(
+                  new Cell(
+                      StringUtils.join(
+                          solarTerm.getJulianDay().getSolarDay().getMonth(),
+                          CharConstant.PERIOD,
+                          solarTerm.getJulianDay().getSolarDay().getDay()),
+                      Color.RESET))
+              .addCell(
+                  new Cell(
+                      flowLunarMonth.getSixtyCycle().getHeavenStem(),
+                      flowLunarMonth.getSixtyCycle().getHeavenStem().getElement().getColorVal()))
+              .addCell(
+                  new Cell(
+                      eightChar
+                          .getDay()
+                          .getHeavenStem()
+                          .getTenStar(flowLunarMonthSixtyCycle.getHeavenStem()),
+                      flowLunarMonth.getSixtyCycle().getHeavenStem().getElement().getColorVal()))
+              .addCell(
+                  new Cell(
+                      flowLunarMonth.getSixtyCycle().getEarthBranch(),
+                      flowLunarMonth.getSixtyCycle().getEarthBranch().getElement().getColorVal()))
+              .addCell(
+                  hideHeavenStemStr(
+                      flowLunarMonthSixtyCycle.getEarthBranch().getHideHeavenStemMain(),
+                      eightChar.getDay().getHeavenStem()))
+              .addCell(
+                  hideHeavenStemStr(
+                      flowLunarMonthSixtyCycle.getEarthBranch().getHideHeavenStemMiddle(),
+                      eightChar.getDay().getHeavenStem()))
+              .addCell(
+                  hideHeavenStemStr(
+                      flowLunarMonthSixtyCycle.getEarthBranch().getHideHeavenStemResidual(),
+                      eightChar.getDay().getHeavenStem())));
     }
     return table;
   }
@@ -155,65 +142,52 @@ public class PaiPanUtil {
   public static Table getFlowYear(SolarTime solarTime, ChildLimit childLimit, EightChar eightChar) {
 
     Table table = TableBuilder.builder().build();
-    table.setName("流年");
-    table
-        .addRow(new Row(new Header("岁")))
-        .addRow(new Row(new Header("年")))
-        .addRow(new Row(new Header("天干")))
-        .addRow(new Row(new Header("天神")))
-        .addRow(new Row(new Header("地支")))
-        .addRow(new Row(new Header("藏干-本气")))
-        .addRow(new Row(new Header("藏干-中气")))
-        .addRow(new Row(new Header("藏干-余气")));
+    table.setName(TermEnum.LIU_NIAN.show());
+    table.addColumn(
+        new Column(new Header(TermEnum.SUI.show()))
+            .addCell(new Cell((TermEnum.NIAN.show())))
+            .addCell(new Cell((TermEnum.TIAN_GAN.show())))
+            .addCell(new Cell((TermEnum.GAN_SHENG.show())))
+            .addCell(new Cell((TermEnum.DI_ZHI.show())))
+            .addCell(new Cell((TermEnum.BEN_QI.show())))
+            .addCell(new Cell((TermEnum.ZHONG_QI.show())))
+            .addCell(new Cell((TermEnum.YU_QI.show()))));
     DecadeFortune currentDecadeFortune =
         childLimit.getStartDecadeFortune().getCurrentDecadeFortune();
     int flowStartAge = currentDecadeFortune.getStartAge();
     LunarYear flowLunarYear = currentDecadeFortune.getStartLunarYear();
     for (int i = 0; i < FLOW_SIZE; i++) {
       SixtyCycle flowLunarYearSixtyCycle = flowLunarYear.getSixtyCycle();
-      table
-          .getRowByName("岁")
-          .addCell(new Cell(StringUtils.join(flowStartAge + i, CHAR_AGE), Color.RESET));
-      table.getRowByName("年").addCell(new Cell(flowLunarYear.getYear(), Color.RESET));
-      table
-          .getRowByName("天干")
-          .addCell(
-              new Cell(
-                  flowLunarYearSixtyCycle.getHeavenStem(),
-                  flowLunarYearSixtyCycle.getHeavenStem().getElement().getColor()));
-      table
-          .getRowByName("天神")
-          .addCell(
-              new Cell(
-                  eightChar
-                      .getDay()
-                      .getHeavenStem()
-                      .getTenStar(flowLunarYearSixtyCycle.getHeavenStem()),
-                  flowLunarYearSixtyCycle.getHeavenStem().getElement().getColor()));
-      table
-          .getRowByName("地支")
-          .addCell(
-              new Cell(
-                  flowLunarYearSixtyCycle.getEarthBranch(),
-                  flowLunarYearSixtyCycle.getEarthBranch().getElement().getColor()));
-      table
-          .getRowByName("藏干-本气")
-          .addCell(
-              hideHeavenStemStr(
-                  flowLunarYearSixtyCycle.getEarthBranch().getHideHeavenStemMain(),
-                  eightChar.getDay().getHeavenStem()));
-      table
-          .getRowByName("藏干-中气")
-          .addCell(
-              hideHeavenStemStr(
-                  flowLunarYearSixtyCycle.getEarthBranch().getHideHeavenStemMiddle(),
-                  eightChar.getDay().getHeavenStem()));
-      table
-          .getRowByName("藏干-余气")
-          .addCell(
-              hideHeavenStemStr(
-                  flowLunarYearSixtyCycle.getEarthBranch().getHideHeavenStemResidual(),
-                  eightChar.getDay().getHeavenStem()));
+      table.addColumn(
+          new Column(new Header(StringUtils.join(flowStartAge + i, CHAR_AGE)))
+                  .addCell(new Cell(flowLunarYear.getYear(), Color.RESET))
+                  .addCell(
+                  new Cell(
+                      flowLunarYearSixtyCycle.getHeavenStem(),
+                      flowLunarYearSixtyCycle.getHeavenStem().getElement().getColorVal()))
+              .addCell(
+                  new Cell(
+                      eightChar
+                          .getDay()
+                          .getHeavenStem()
+                          .getTenStar(flowLunarYearSixtyCycle.getHeavenStem()),
+                      flowLunarYearSixtyCycle.getHeavenStem().getElement().getColorVal()))
+              .addCell(
+                  new Cell(
+                      flowLunarYearSixtyCycle.getEarthBranch(),
+                      flowLunarYearSixtyCycle.getEarthBranch().getElement().getColorVal()))
+              .addCell(
+                  hideHeavenStemStr(
+                      flowLunarYearSixtyCycle.getEarthBranch().getHideHeavenStemMain(),
+                      eightChar.getDay().getHeavenStem()))
+              .addCell(
+                  hideHeavenStemStr(
+                      flowLunarYearSixtyCycle.getEarthBranch().getHideHeavenStemMiddle(),
+                      eightChar.getDay().getHeavenStem()))
+              .addCell(
+                  hideHeavenStemStr(
+                      flowLunarYearSixtyCycle.getEarthBranch().getHideHeavenStemResidual(),
+                      eightChar.getDay().getHeavenStem())));
       flowLunarYear = flowLunarYear.next(1);
     }
     return table;
@@ -230,7 +204,7 @@ public class PaiPanUtil {
       SolarTime solarTime, ChildLimit childLimit, EightChar eightChar) {
 
     Table table = TableBuilder.builder().build();
-    table.setName("大运");
+    table.setName(TermEnum.DA_YUN.show());
     DecadeFortune decadeFortune = childLimit.getStartDecadeFortune();
     SixtyCycle startDecaFortuneSixtyCycle = decadeFortune.getSixtyCycle().next(-1);
     table.setTitle(
@@ -241,114 +215,87 @@ public class PaiPanUtil {
             childLimit.getEndTime().getDay(),
             childLimit.getYearCount(),
             childLimit.getMonthCount()));
-    table
-        .addRow(new Row(new Header("岁", Color.BOLD)))
-        .addRow(new Row(new Header("年", Color.BOLD)))
-        .addRow(new Row(new Header("天干", Color.BOLD)))
-        .addRow(new Row(new Header("天神", Color.BOLD)))
-        .addRow(new Row(new Header("地支", Color.BOLD)))
-        .addRow(new Row(new Header("藏干-本气", Color.BOLD)))
-        .addRow(new Row(new Header("藏干-中气", Color.BOLD)))
-        .addRow(new Row(new Header("藏干-余气", Color.BOLD)));
-    table
-        .getRowByName("岁")
-        .addCell(
-            new Cell(
-                StringUtils.join(
-                    "0~",
-                    decadeFortune.getStartAge() == 0
-                        ? decadeFortune.getStartAge()
-                        : decadeFortune.getStartAge() - 1,
-                    CHAR_AGE),
-                Color.RESET));
-    table.getRowByName("年").addCell(new Cell(solarTime.getYear(), Color.RESET));
-    table
-        .getRowByName("天干")
-        .addCell(
-            new Cell(
-                startDecaFortuneSixtyCycle.getHeavenStem(),
-                startDecaFortuneSixtyCycle.getHeavenStem().getElement().getColor()));
-    table
-        .getRowByName("天神")
-        .addCell(
-            new Cell(
-                eightChar
-                    .getDay()
-                    .getHeavenStem()
-                    .getTenStar(startDecaFortuneSixtyCycle.getHeavenStem()),
-                startDecaFortuneSixtyCycle.getHeavenStem().getElement().getColor()));
-    table
-        .getRowByName("地支")
-        .addCell(
-            new Cell(
-                startDecaFortuneSixtyCycle.getEarthBranch(),
-                startDecaFortuneSixtyCycle.getEarthBranch().getElement().getColor()));
-
-    table
-        .getRowByName("藏干-本气")
-        .addCell(
-            hideHeavenStemStr(
-                startDecaFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMain(),
-                eightChar.getDay().getHeavenStem()));
-    table
-        .getRowByName("藏干-中气")
-        .addCell(
-            hideHeavenStemStr(
-                startDecaFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMiddle(),
-                eightChar.getDay().getHeavenStem()));
-    table
-        .getRowByName("藏干-余气")
-        .addCell(
-            hideHeavenStemStr(
-                startDecaFortuneSixtyCycle.getEarthBranch().getHideHeavenStemResidual(),
-                eightChar.getDay().getHeavenStem()));
+    table.addColumn(
+        new Column(new Header(TermEnum.SUI.show()))
+            .addCell(new Cell(TermEnum.NIAN.show(), Color.BOLD))
+            .addCell(new Cell(TermEnum.TIAN_GAN.show(), Color.BOLD))
+            .addCell(new Cell(TermEnum.GAN_SHENG.show(), Color.BOLD))
+            .addCell(new Cell(TermEnum.DI_ZHI.show(), Color.BOLD))
+            .addCell(new Cell(TermEnum.BEN_QI.show(), Color.BOLD))
+            .addCell(new Cell(TermEnum.ZHONG_QI.show(), Color.BOLD))
+            .addCell(new Cell(TermEnum.YU_QI.show(), Color.BOLD)));
+    table.addColumn(
+        new Column(
+                new Header(
+                    StringUtils.join(
+                        "0~",
+                        decadeFortune.getStartAge() == 0
+                            ? decadeFortune.getStartAge()
+                            : decadeFortune.getStartAge() - 1,
+                        CHAR_AGE),
+                    Color.RESET))
+            .addCell(
+                new Cell(
+                        decadeFortune.getStartLunarYear().getYear(), Color.RESET))
+            .addCell(
+                new Cell(
+                    startDecaFortuneSixtyCycle.getHeavenStem(),
+                    startDecaFortuneSixtyCycle.getHeavenStem().getElement().getColorVal()))
+            .addCell(
+                new Cell(
+                    eightChar
+                        .getDay()
+                        .getHeavenStem()
+                        .getTenStar(startDecaFortuneSixtyCycle.getHeavenStem()),
+                    startDecaFortuneSixtyCycle.getHeavenStem().getElement().getColorVal()))
+            .addCell(
+                new Cell(
+                    startDecaFortuneSixtyCycle.getEarthBranch(),
+                    startDecaFortuneSixtyCycle.getEarthBranch().getElement().getColorVal()))
+            .addCell(
+                hideHeavenStemStr(
+                    startDecaFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMain(),
+                    eightChar.getDay().getHeavenStem()))
+            .addCell(
+                hideHeavenStemStr(
+                    startDecaFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMiddle(),
+                    eightChar.getDay().getHeavenStem()))
+            .addCell(
+                hideHeavenStemStr(
+                    startDecaFortuneSixtyCycle.getEarthBranch().getHideHeavenStemResidual(),
+                    eightChar.getDay().getHeavenStem())));
     for (int i = 0; i < FORTURE_SIZE; i++) {
       SixtyCycle decadeFortuneSixtyCycle = decadeFortune.getSixtyCycle();
       table
-          .getRowByName("岁")
-          .addCell(new Cell(StringUtils.join(decadeFortune.getStartAge(), CHAR_AGE), Color.RESET));
-      table
-          .getRowByName("年")
-          .addCell(new Cell(decadeFortune.getStartLunarYear().getYear(), Color.RESET));
-      table
-          .getRowByName("天干")
+          .addColumn(new Column(new Header(StringUtils.join(decadeFortune.getStartAge(), CHAR_AGE), Color.RESET))
+          .addCell(new Cell(decadeFortune.getStartLunarYear().getYear(), Color.RESET))
           .addCell(
               new Cell(
                   decadeFortune.getSixtyCycle().getHeavenStem(),
-                  decadeFortune.getSixtyCycle().getHeavenStem().getElement().getColor()));
-      table
-          .getRowByName("天神")
+                  decadeFortune.getSixtyCycle().getHeavenStem().getElement().getColorVal()))
           .addCell(
               new Cell(
                   eightChar
                       .getDay()
                       .getHeavenStem()
                       .getTenStar(decadeFortuneSixtyCycle.getHeavenStem()),
-                  decadeFortune.getSixtyCycle().getHeavenStem().getElement().getColor()));
-      table
-          .getRowByName("地支")
+                  decadeFortune.getSixtyCycle().getHeavenStem().getElement().getColorVal()))
           .addCell(
               new Cell(
                   decadeFortune.getSixtyCycle().getEarthBranch(),
-                  decadeFortune.getSixtyCycle().getEarthBranch().getElement().getColor()));
-      table
-          .getRowByName("藏干-本气")
+                  decadeFortune.getSixtyCycle().getEarthBranch().getElement().getColorVal()))
           .addCell(
               hideHeavenStemStr(
                   decadeFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMain(),
-                  eightChar.getDay().getHeavenStem()));
-      table
-          .getRowByName("藏干-中气")
+                  eightChar.getDay().getHeavenStem()))
           .addCell(
               hideHeavenStemStr(
                   decadeFortuneSixtyCycle.getEarthBranch().getHideHeavenStemMiddle(),
-                  eightChar.getDay().getHeavenStem()));
-      table
-          .getRowByName("藏干-余气")
+                  eightChar.getDay().getHeavenStem()))
           .addCell(
               hideHeavenStemStr(
                   decadeFortuneSixtyCycle.getEarthBranch().getHideHeavenStemResidual(),
-                  eightChar.getDay().getHeavenStem()));
+                  eightChar.getDay().getHeavenStem())));
       decadeFortune = decadeFortune.next(1);
     }
     return table;
@@ -358,16 +305,16 @@ public class PaiPanUtil {
     Table table =
         TableBuilder.builder()
             .build()
-            .addColumn(new Column(new Header("类目", Color.BOLD)))
-            .addColumn(new Column(new Header("年柱", Color.BOLD)))
-            .addColumn(new Column(new Header("月柱", Color.BOLD)))
-            .addColumn(new Column(new Header("日柱", Color.BOLD)))
-            .addColumn(new Column(new Header("时柱", Color.BOLD)))
-            .addColumn(new Column(new Header("大运", Color.BOLD)))
-            .addColumn(new Column(new Header("流年", Color.BOLD)))
-            .addColumn(new Column(new Header("流月", Color.BOLD)));
+            .addColumn(new Column(new Header(TermEnum.LEI_MU.show(), Color.BOLD, 10)))
+            .addColumn(new Column(new Header(TermEnum.NIAN_ZHU.show(), Color.BOLD)))
+            .addColumn(new Column(new Header(TermEnum.YUE_ZHU.show(), Color.BOLD)))
+            .addColumn(new Column(new Header(TermEnum.RI_ZHU.show(), Color.BOLD)))
+            .addColumn(new Column(new Header(TermEnum.SHI_ZHU.show(), Color.BOLD)))
+            .addColumn(new Column(new Header(TermEnum.DA_YUN.show(), Color.BOLD)))
+            .addColumn(new Column(new Header(TermEnum.LIU_NIAN.show(), Color.BOLD)))
+            .addColumn(new Column(new Header(TermEnum.LIU_YUE.show(), Color.BOLD)));
 
-    table.setName("八字");
+    table.setName(TermEnum.BA_ZI.show());
     DecadeFortune currentDecadeFortune =
         childLimit.getStartDecadeFortune().getCurrentDecadeFortune();
 
@@ -394,91 +341,94 @@ public class PaiPanUtil {
                 currentSolarTime.getLunarHour().getMonth())
             .getSixtyCycle();
     table.addRow(
-        new Row(new Header("干神", Color.BOLD))
+        new Row().addCell(new Cell(TermEnum.GAN_SHENG.show(), Color.BOLD))
             .addCell(
                 new Cell(
                     dayPillar.getHeavenStem().getTenStar(yearPillar.getHeavenStem()),
-                    yearPillar.getHeavenStem().getElement().getColor()))
+                    yearPillar.getHeavenStem().getElement().getColorVal()))
             .addCell(
                 new Cell(
                     dayPillar.getHeavenStem().getTenStar(monthPillar.getHeavenStem()),
-                    monthPillar.getHeavenStem().getElement().getColor()))
-            .addCell(new Cell(StringUtils.join(childLimit.getGender().getName(), "主"), Color.RESET))
+                    monthPillar.getHeavenStem().getElement().getColorVal()))
+            .addCell(
+                new Cell(
+                    StringUtils.join(TermEnum.YUAN.show(), childLimit.getGender().getName()),
+                    Color.RESET))
             .addCell(
                 new Cell(
                     dayPillar.getHeavenStem().getTenStar(hourPillar.getHeavenStem()),
-                    hourPillar.getHeavenStem().getElement().getColor()))
+                    hourPillar.getHeavenStem().getElement().getColorVal()))
             .addCell(
                 new Cell(
                     dayPillar.getHeavenStem().getTenStar(decadeFuturePillar.getHeavenStem()),
-                    decadeFuturePillar.getHeavenStem().getElement().getColor()))
+                    decadeFuturePillar.getHeavenStem().getElement().getColorVal()))
             .addCell(
                 new Cell(
                     dayPillar.getHeavenStem().getTenStar(yearSixtyCycle.getHeavenStem()),
-                    yearSixtyCycle.getHeavenStem().getElement().getColor()))
+                    yearSixtyCycle.getHeavenStem().getElement().getColorVal()))
             .addCell(
                 new Cell(
                     dayPillar.getHeavenStem().getTenStar(monthSixtyCycle.getHeavenStem()),
-                    monthSixtyCycle.getHeavenStem().getElement().getColor())));
+                    monthSixtyCycle.getHeavenStem().getElement().getColorVal())));
     table.addRow(
-        new Row(new Header("天干", Color.BOLD))
+        new Row().addCell(new Cell(TermEnum.TIAN_GAN.show(), Color.BOLD))
             .addCell(
                 new Cell(
                     yearPillar.getHeavenStem(),
-                    monthPillar.getHeavenStem().getElement().getColor()))
+                    monthPillar.getHeavenStem().getElement().getColorVal()))
             .addCell(
                 new Cell(
                     monthPillar.getHeavenStem(),
-                    monthPillar.getHeavenStem().getElement().getColor()))
+                    monthPillar.getHeavenStem().getElement().getColorVal()))
             .addCell(
                 new Cell(
-                    dayPillar.getHeavenStem(), dayPillar.getHeavenStem().getElement().getColor()))
+                    dayPillar.getHeavenStem(), dayPillar.getHeavenStem().getElement().getColorVal()))
             .addCell(
                 new Cell(
-                    hourPillar.getHeavenStem(), hourPillar.getHeavenStem().getElement().getColor()))
+                    hourPillar.getHeavenStem(), hourPillar.getHeavenStem().getElement().getColorVal()))
             .addCell(
                 new Cell(
                     decadeFuturePillar.getHeavenStem(),
-                    decadeFuturePillar.getHeavenStem().getElement().getColor()))
+                    decadeFuturePillar.getHeavenStem().getElement().getColorVal()))
             .addCell(
                 new Cell(
                     yearSixtyCycle.getHeavenStem(),
-                    yearSixtyCycle.getHeavenStem().getElement().getColor()))
+                    yearSixtyCycle.getHeavenStem().getElement().getColorVal()))
             .addCell(
                 new Cell(
                     monthSixtyCycle.getHeavenStem(),
-                    monthSixtyCycle.getHeavenStem().getElement().getColor())));
+                    monthSixtyCycle.getHeavenStem().getElement().getColorVal())));
     table.addRow(
-        new Row(new Header("地支", Color.BOLD))
+        new Row().addCell(new Cell(TermEnum.DI_ZHI.show(), Color.BOLD))
             .addCell(
                 new Cell(
                     yearPillar.getEarthBranch(),
-                    yearPillar.getEarthBranch().getElement().getColor()))
+                    yearPillar.getEarthBranch().getElement().getColorVal()))
             .addCell(
                 new Cell(
                     monthPillar.getEarthBranch(),
-                    monthPillar.getEarthBranch().getElement().getColor()))
+                    monthPillar.getEarthBranch().getElement().getColorVal()))
             .addCell(
                 new Cell(
-                    dayPillar.getEarthBranch(), dayPillar.getEarthBranch().getElement().getColor()))
+                    dayPillar.getEarthBranch(), dayPillar.getEarthBranch().getElement().getColorVal()))
             .addCell(
                 new Cell(
                     hourPillar.getEarthBranch(),
-                    hourPillar.getEarthBranch().getElement().getColor()))
+                    hourPillar.getEarthBranch().getElement().getColorVal()))
             .addCell(
                 new Cell(
                     decadeFuturePillar.getEarthBranch(),
-                    decadeFuturePillar.getEarthBranch().getElement().getColor()))
+                    decadeFuturePillar.getEarthBranch().getElement().getColorVal()))
             .addCell(
                 new Cell(
                     yearSixtyCycle.getEarthBranch(),
-                    yearSixtyCycle.getEarthBranch().getElement().getColor()))
+                    yearSixtyCycle.getEarthBranch().getElement().getColorVal()))
             .addCell(
                 new Cell(
                     monthSixtyCycle.getEarthBranch(),
-                    monthSixtyCycle.getEarthBranch().getElement().getColor())));
+                    monthSixtyCycle.getEarthBranch().getElement().getColorVal())));
     table.addRow(
-        new Row(new Header("藏干-本气", Color.BOLD))
+        new Row().addCell(new Cell(TermEnum.BEN_QI.show(), Color.BOLD))
             .addCell(
                 hideHeavenStemStr(
                     yearPillar.getEarthBranch().getHideHeavenStemMain(), dayPillar.getHeavenStem()))
@@ -505,7 +455,7 @@ public class PaiPanUtil {
                     monthSixtyCycle.getEarthBranch().getHideHeavenStemMain(),
                     dayPillar.getHeavenStem())));
     table.addRow(
-        new Row(new Header("藏干-中气", Color.BOLD))
+        new Row().addCell(new Cell(TermEnum.ZHONG_QI.show(), Color.BOLD))
             .addCell(
                 hideHeavenStemStr(
                     yearPillar.getEarthBranch().getHideHeavenStemMiddle(),
@@ -535,7 +485,7 @@ public class PaiPanUtil {
                     monthSixtyCycle.getEarthBranch().getHideHeavenStemMiddle(),
                     dayPillar.getHeavenStem())));
     table.addRow(
-        new Row(new Header("藏干-余气", Color.BOLD))
+        new Row().addCell(new Cell(TermEnum.YU_QI.show(), Color.BOLD))
             .addCell(
                 hideHeavenStemStr(
                     yearPillar.getEarthBranch().getHideHeavenStemResidual(),
@@ -565,7 +515,7 @@ public class PaiPanUtil {
                     monthSixtyCycle.getEarthBranch().getHideHeavenStemResidual(),
                     dayPillar.getHeavenStem())));
     table.addRow(
-        new Row(new Header("地势", Color.BOLD))
+        new Row().addCell(new Cell(TermEnum.DI_SHI.show(), Color.BOLD))
             .addCell(
                 new Cell(
                     dayPillar.getHeavenStem().getTerrain(yearPillar.getEarthBranch()), Color.RESET))
@@ -593,14 +543,14 @@ public class PaiPanUtil {
                     Color.RESET)));
     ;
     table.addRow(
-        new Row(new Header("纳音", Color.BOLD))
+        new Row().addCell(new Cell(TermEnum.NA_YIN.show(), Color.BOLD))
             .addCell(new Cell(yearPillar.getSound(), Color.RESET))
             .addCell(new Cell(monthPillar.getSound(), Color.RESET))
             .addCell(new Cell(dayPillar.getSound(), Color.RESET))
             .addCell(new Cell(hourPillar.getSound(), Color.RESET))
             .addCell(new Cell(CharConstant.MIDDLE, Color.RESET)));
     table.addRow(
-        new Row(new Header("空亡", Color.BOLD))
+        new Row().addCell(new Cell(TermEnum.KONG_WANG.show(), Color.BOLD))
             .addCell(new Cell(extraEarthBranchStr(yearPillar.getExtraEarthBranches()), Color.RESET))
             .addCell(
                 new Cell(extraEarthBranchStr(monthPillar.getExtraEarthBranches()), Color.RESET))
@@ -630,7 +580,7 @@ public class PaiPanUtil {
     return new Cell(
         StringUtils.join(
             heavenStem.getName(), CharConstant.PERIOD, dayHeavenStem.getTenStar(heavenStem)),
-        heavenStem.getElement().getColor());
+        heavenStem.getElement().getColorVal());
   }
 
   public static SolarTime getTrueSolarTime(Birth birth) {

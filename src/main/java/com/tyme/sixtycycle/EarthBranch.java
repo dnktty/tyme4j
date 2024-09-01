@@ -97,8 +97,10 @@ public class EarthBranch extends LoopTyme {
    *
    * @return 方位
    */
+
   public Direction getDirection() {
-    return Direction.fromIndex(new int[]{0, 4, 2, 2, 4, 8, 8, 4, 6, 6, 4, 0}[index]);
+    return Direction.fromIndex(new int[]{0, 7, 7, 2, 3, 3, 8, 1, 1, 6, 5, 5}[index]);
+//    return Direction.fromIndex(new int[]{0, 4, 2, 2, 4, 8, 8, 4, 6, 6, 4, 0}[index]);
   }
 
   /**

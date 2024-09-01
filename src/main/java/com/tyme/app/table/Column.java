@@ -1,24 +1,26 @@
 package com.tyme.app.table;
 
-import lombok.*;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
-
-@Getter
-@Setter
-@ToString
-public class Column<T> {
-    public Column(Header header, List<Cell<T>> cells){
+@Data
+public class Column {
+    public Column(Header header, List<Cell> cells) {
         this.header = header;
         this.cells = cells;
     }
-    public Column(Header header){
-        this.header = header;
-        this.cells = new ArrayList<>();
-    }
-    private int index;
-    private Header<T> header;
-    private List<Cell<T>> cells;
-}
 
+    public Column(Header header) {
+        this.header = header;
+    }
+    private List<Cell> cells = new ArrayList<>();
+    private Header header;
+
+
+    public Column addCell(Cell cell) {
+        cells.add(cell);
+        return this;
+    }
+}

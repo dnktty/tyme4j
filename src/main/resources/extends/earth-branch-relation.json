@@ -1,0 +1,668 @@
+{
+  "name": "地支关系2",
+  "title": "地支三刑三合三会",
+  "headers": [
+    {
+      "value": "地支",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "子",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "丑",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "寅",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "卯",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "辰",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "巳",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "午",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "未",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "申",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "酉",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "戌",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "亥",
+      "colorVal": "\u001B[0m"
+    }
+  ],
+  "rows": [
+    {
+      "cells": [
+        {
+          "value": "三刑-无恩",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "寅",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "巳",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "申",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "value": "三刑-恃势",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "丑",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "未",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "戌",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },{
+      "cells": [
+        {
+          "value": "三刑-无礼",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "子",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "卯",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },{
+      "cells": [
+        {
+          "value": "三合-水",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "子",
+          "colorVal": "\u001B[34m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "辰",
+          "colorVal": "\u001B[34m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "申",
+          "colorVal": "\u001B[34m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },{
+      "cells": [
+        {
+          "value": "三合-金",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "丑",
+          "colorVal": "\u001B[33m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "巳",
+          "colorVal": "\u001B[33m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "酉",
+          "colorVal": "\u001B[33m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },{
+      "cells": [
+        {
+          "value": "三合-火",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "寅",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "午",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "戌",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },{
+      "cells": [
+        {
+          "value": "三合-木",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "卯",
+          "colorVal": "\u001B[32m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "未",
+          "colorVal": "\u001B[32m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "亥",
+          "colorVal": "\u001B[32m"
+        }
+      ]
+    },{
+      "cells": [
+        {
+          "value": "三会-木",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "寅",
+          "colorVal": "\u001B[32m"
+        },
+        {
+          "value": "卯",
+          "colorVal": "\u001B[32m"
+        },
+        {
+          "value": "辰",
+          "colorVal": "\u001B[32m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },{
+      "cells": [
+        {
+          "value": "三会-火",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "巳",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "午",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "未",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },{
+      "cells": [
+        {
+          "value": "三会-金",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "申",
+          "colorVal": "\u001B[33m"
+        },
+        {
+          "value": "酉",
+          "colorVal": "\u001B[33m"
+        },
+        {
+          "value": "戌",
+          "colorVal": "\u001B[33m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "value": "三会-水",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "子",
+          "colorVal": "\u001B[34m"
+        },
+        {
+          "value": "丑",
+          "colorVal": "\u001B[34m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "亥",
+          "colorVal": "\u001B[34m"
+        }
+      ]
+    }
+  ]
+}

@@ -7,23 +7,37 @@ import lombok.*;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Header<T> {
-    public Header(int index,int span, String name, Color color) {
-        this.index = index;
-        this.span = span;
-        this.name = name;
+public class Header<T> extends Cell<T>{
+    //列值获取key
+    private String key;
+    //列宽度
+    private int width;
+    public Header(T value, String key, Color color, int width) {
+        this.value = value;
+        this.key = key;
         this.color = color;
+        this.width = width;
     }
-    public Header(String name, Color color) {
-        this.name = name;
+    public Header(T value, Color color, int width) {
+        this.value = value;
         this.color = color;
+        this.width = width;
     }
-    public Header(String name) {
-        this.name = name;
+    public Header(T value, String key, Color color) {
+        super.value = value;
+        this.key = key;
+        super.color = color;
     }
-    private int index = 0;
-    private int span = 1;
-    private String name;
-    private Color color = Color.RESET;
-    private T type;
+    public Header(T value, Color color) {
+        super.value = value;
+        super.color = color;
+    }
+    public Header(T value, String key) {
+        super.value = value;
+        this.key = key;
+    }
+    public Header(T value) {
+        super.value = value;
+    }
+
 }

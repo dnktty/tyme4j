@@ -14,6 +14,7 @@ public class Direction extends LoopTyme {
    */
   public static final String[] NAMES = {"北", "西南", "东", "东南", "中", "西北", "西", "东北", "南"};
   public static final String[] BA_GUA = {"坎（kǎn）", "坤（kūn）", "震（zhèn）", "巽（xùn）", "中", "乾（qián）", "兑（duì）", "艮（gèn）", "离（lí）"};
+  public static final String[] REPRESENTS = {"☵", "☷", "☳", "☴", "中", "☰", "☱", "☶", "☲"};
 
   public Direction(int index) {
     super(NAMES, index);
@@ -50,6 +51,13 @@ public class Direction extends LoopTyme {
    */
   public String getBaGua() {
     return BA_GUA[index];
+  }
+  /**
+   * 八卦图像
+   * @return
+   */
+  public String getRepresent() {
+    return REPRESENTS[index];
   }
 
   /**

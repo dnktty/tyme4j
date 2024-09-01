@@ -1,0 +1,408 @@
+{
+  "name": "十神",
+  "title": "十神和意义",
+  "headers": [
+    {
+      "value": "十神",
+      "width": "4",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "别名",
+      "width": "8",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "和我的关系",
+      "width": "8",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "性别",
+      "width": "4",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "六亲关系",
+      "width": "35",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "优点",
+      "width": "10",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "缺点",
+      "width": "10",
+      "colorVal": "\u001B[0m"
+    },
+    {
+      "value": "其他",
+      "width": "35",
+      "colorVal": "\u001B[0m"
+    }
+  ],
+  "rows": [
+    {
+      "cells": [
+        {
+          "value": "劫",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "劫财",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "同我者",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "异性",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "男的姐妹，女的兄弟，朋友，同辈",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "勇猛",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "粗暴自负",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "代表竞争和冲突，劫财多容易破财",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "value": "比",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "比肩",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "同我者",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "同性",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "男的兄弟，女的姐妹，朋友，同辈",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "自信",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "坚持己见，不听劝",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "比肩多容易合伙做事，帮身抗杀克财助伤食",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "value": "官",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "正官",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "克我者",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "异性",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "长官，上司，女的丈夫，男的女儿",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "正义保守，秉公尚义",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "胆小怕事，过于谨慎",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "代表名誉、地位和权力；官主贵 有情约束 引财生印拘身制劫",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "value": "杀",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "七杀/偏官",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "克我者",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "同性",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "女的偏夫，男的儿子",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "坚决果断，天生王者",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "个性偏激，招惹小人",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "代表权力和暴力，有时也代表小人或挑战；杀主祸 事业名气权利 耗财生印攻身制劫",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "value": "财",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "正财",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "我克者/耗",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "异性",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "男的妻子，女的父亲",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "精打细算 勤俭持家 ",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "因小失大 不大气",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "财不大 稳定 生官杀 泄伤食 制枭 坏印；代表个人的稳定收入和物质财富，代表妻子的嫁妆和个人固定资产，这种是可以统计的",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "value": "才",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "偏财",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "我克者/泄",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "同性",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "男的父亲，女的婆婆",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "慷慨豪爽 不拘小节",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "虚荣心强 炫富 花心",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "财大不固定 代表众人之才，代表父亲或者自己的才能，即找钱的本事。代表意外之财或浮动资产，如股票、奖金等",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "value": "印",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "正印",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "生我者",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "异性",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "长辈，贵人，师长，男的母亲，女的祖父，女婿",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "优雅仁慈",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "依赖 不乐意动",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "正印多容易懒 得母偏爱 生身泄官杀 御伤挫食 代表学问、智慧和慈悲心",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "value": "枭",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "枭神/偏印",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "生我者",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "同性",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "女的母亲，男的祖父，意外的帮助，力量",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "思维细腻",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "内向多疑",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "偏印旺容易研究五术 代表智慧和隐秘的力量",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "value": "伤",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "伤官",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "我生者/泄",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "异性",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "晚辈，学生，部属，男的孙女，祖母，女的儿子",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "聪明悟性高创造力强",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "桀骜不逊 高冷挑剔",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "女命是否克夫取决于组合 代表才华和创造力，但也可能带来是非",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "value": "食",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "食神",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "我生者/泄",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "同性",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "晚辈，学生，部属，女的女儿",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "口才好想法多",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "空想幻想纠结",
+          "colorVal": "\u001B[0m"
+        },
+        {
+          "value": "泄身生财敌杀损官 代表才华和艺术天赋",
+          "colorVal": "\u001B[0m"
+        }
+      ]
+    }
+  ]
+}

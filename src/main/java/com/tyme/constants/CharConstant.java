@@ -11,4 +11,5 @@ public class CharConstant {
     public static String COLON = ":";
     public static String WHITE_SPACE = " ";
     public static String PERIOD = ".";
+    public static String SLASH = "/";
 }

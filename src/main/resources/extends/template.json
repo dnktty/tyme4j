@@ -1,0 +1,42 @@
+{
+  "name": "表单模板",
+  "title": "一个表单样板",
+  "headers": [
+    {
+      "value": "名称",
+      "width": "10",
+      "colorVal": "\u001B[31m"
+    },
+    {
+      "value": "标题",
+      "width": "10",
+      "colorVal": "\u001B[31m"
+    }
+  ],
+  "rows": [
+    {
+      "cells": [
+        {
+          "value": "name1-1",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "name1-2",
+          "colorVal": "\u001B[31m"
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "value": "name2-1",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "name2-2",
+          "colorVal": "\u001B[31m"
+        }
+      ]
+    }
+  ]
+}

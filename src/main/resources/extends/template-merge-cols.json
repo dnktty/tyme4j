@@ -1,0 +1,55 @@
+{
+  "name": "表单模板",
+  "title": "一个表单样板",
+  "headers": [
+    {
+      "value": "性别",
+      "width": "10",
+      "colorVal": "\u001B[31m"
+    },
+    {
+      "value": "成绩",
+      "width": "10",
+      "colorVal": "\u001B[31m"
+    },
+    {
+      "value": "年龄",
+      "width": "10",
+      "colorVal": "\u001B[31m"
+    }
+  ],
+  "rows": [
+    {
+      "cells": [
+        {
+          "value": "男",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "90",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "12",
+          "colorVal": "\u001B[31m"
+        }
+      ]
+    },
+    {
+      "cells": [
+        {
+          "value": "女",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "78",
+          "colorVal": "\u001B[31m"
+        },
+        {
+          "value": "11",
+          "colorVal": "\u001B[31m"
+        }
+      ]
+    }
+  ]
+}

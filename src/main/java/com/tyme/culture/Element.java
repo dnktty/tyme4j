@@ -100,7 +100,7 @@ public class Element extends LoopTyme {
    *
    * @return
    */
-  public Color getColor() {
+  public Color getColorVal() {
     return Color.fromIndex(new int[]{0, 1, 2, 3, 4}[index]);
   }
   /**
