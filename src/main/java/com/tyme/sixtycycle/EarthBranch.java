@@ -6,16 +6,21 @@ import com.tyme.culture.Element;
 import com.tyme.culture.Zodiac;
 import com.tyme.culture.pengzu.PengZuEarthBranch;
 import com.tyme.enums.YinYang;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 地支
  *
  * @author 6tail
  */
+@Setter
+@Getter
 public class EarthBranch extends LoopTyme {
 
   public static final String[] NAMES = {"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
-
+  //场景
+  private int position;
   public EarthBranch(int index) {
     super(NAMES, index);
   }
@@ -60,7 +65,9 @@ public class EarthBranch extends LoopTyme {
    * @return 天干
    */
   public HeavenStem getHideHeavenStemMain() {
-    return HeavenStem.fromIndex(new int[]{9, 5, 0, 1, 4, 2, 3, 5, 6, 7, 4, 8}[index]);
+    HeavenStem heavenStem = HeavenStem.fromIndex(new int[]{9, 5, 0, 1, 4, 2, 3, 5, 6, 7, 4, 8}[index]);
+    heavenStem.setPosition(position*10+1);
+    return heavenStem;
   }
 
   /**
@@ -70,7 +77,13 @@ public class EarthBranch extends LoopTyme {
    */
   public HeavenStem getHideHeavenStemMiddle() {
     int n = new int[]{-1, 9, 2, -1, 1, 6, 5, 3, 8, -1, 7, 0}[index];
-    return n == -1 ? null : HeavenStem.fromIndex(n);
+    if(n == -1){
+      return null;
+    }else{
+      HeavenStem heavenStem = HeavenStem.fromIndex(n);
+      heavenStem.setPosition(position*10+2);
+      return heavenStem;
+    }
   }
 
   /**
@@ -80,7 +93,13 @@ public class EarthBranch extends LoopTyme {
    */
   public HeavenStem getHideHeavenStemResidual() {
     int n = new int[]{-1, 7, 4, -1, 9, 4, -1, 1, 4, -1, 3, -1}[index];
-    return n == -1 ? null : HeavenStem.fromIndex(n);
+    if(n == -1){
+      return null;
+    }else{
+      HeavenStem heavenStem = HeavenStem.fromIndex(n);
+      heavenStem.setPosition(position*10+3);
+      return heavenStem;
+    }
   }
 
   /**

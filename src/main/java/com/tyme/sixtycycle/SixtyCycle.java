@@ -4,13 +4,21 @@ import com.tyme.LoopTyme;
 import com.tyme.culture.Ten;
 import com.tyme.culture.Sound;
 import com.tyme.culture.pengzu.PengZu;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 六十甲子(六十干支周)
  *
  * @author 6tail
  */
+@Getter
+@Setter
 public class SixtyCycle extends LoopTyme {
+  //位置
+  private int position;
 
   public static final String[] NAMES = {"甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午", "辛未", "壬申", "癸酉", "甲戌", "乙亥", "丙子", "丁丑", "戊寅", "己卯", "庚辰", "辛巳", "壬午", "癸未", "甲申", "乙酉", "丙戌", "丁亥", "戊子", "己丑", "庚寅", "辛卯", "壬辰", "癸巳", "甲午", "乙未", "丙申", "丁酉", "戊戌", "己亥", "庚子", "辛丑", "壬寅", "癸卯", "甲辰", "乙巳", "丙午", "丁未", "戊申", "己酉", "庚戌", "辛亥", "壬子", "癸丑", "甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥"};
 
@@ -36,7 +44,9 @@ public class SixtyCycle extends LoopTyme {
    * @return 天干
    */
   public HeavenStem getHeavenStem() {
-    return HeavenStem.fromIndex(index % HeavenStem.NAMES.length);
+    HeavenStem heavenStem =  HeavenStem.fromIndex(index % HeavenStem.NAMES.length);
+    heavenStem.setPosition(position*10);
+    return heavenStem;
   }
 
   /**
@@ -45,7 +55,9 @@ public class SixtyCycle extends LoopTyme {
    * @return 地支
    */
   public EarthBranch getEarthBranch() {
-    return EarthBranch.fromIndex(index % EarthBranch.NAMES.length);
+    EarthBranch earthBranch = EarthBranch.fromIndex(index % EarthBranch.NAMES.length);
+    earthBranch.setPosition(position*10+1);
+    return earthBranch;
   }
 
   /**

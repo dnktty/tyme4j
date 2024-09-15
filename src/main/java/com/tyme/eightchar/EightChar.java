@@ -2,6 +2,7 @@ package com.tyme.eightchar;
 
 import com.tyme.AbstractCulture;
 import com.tyme.culture.Duty;
+import com.tyme.enums.SixtyCyclePosition;
 import com.tyme.sixtycycle.EarthBranch;
 import com.tyme.sixtycycle.HeavenStem;
 import com.tyme.sixtycycle.SixtyCycle;
@@ -49,9 +50,13 @@ public class EightChar extends AbstractCulture {
    */
   public EightChar(SixtyCycle year, SixtyCycle month, SixtyCycle day, SixtyCycle hour) {
     this.year = year;
+    year.setPosition(SixtyCyclePosition.YEAR.getCode());
     this.month = month;
+    month.setPosition(SixtyCyclePosition.MONTH.getCode());
     this.day = day;
+    day.setPosition(SixtyCyclePosition.DAY.getCode());
     this.hour = hour;
+    hour.setPosition(SixtyCyclePosition.HOUR.getCode());
   }
 
   /**

@@ -5,18 +5,24 @@ import com.tyme.culture.*;
 import com.tyme.culture.pengzu.PengZuHeavenStem;
 import com.tyme.culture.star.ten.TenStar;
 import com.tyme.enums.YinYang;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 天干
  *
  * @author 6tail
  */
+@Setter
+@Getter
 public class HeavenStem extends LoopTyme {
 
   public static final String[] NAMES = {"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
   public static final String[] REPRESENTS = {"大树", "花草", "太阳火", "烛光火", "城墙土", "田园土", "矿石金", "珠宝金", "江河水", "雨露水"};
-
+  //位置
+  private int position;
   public HeavenStem(int index) {
     super(NAMES, index);
   }
@@ -185,6 +191,10 @@ public class HeavenStem extends LoopTyme {
    */
   public Element combine(HeavenStem target) {
     return getCombine().equals(target) ? Element.fromIndex(index + 2) : null;
+  }
+  @Override
+  public String toString() {
+    return StringUtils.join("{","}");
   }
 
 }
